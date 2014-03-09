@@ -1,0 +1,30 @@
+{
+    "name": "indigophp/cart",
+    "description": "Decent shopping cart and store abstraction",
+    "license": "MIT",
+    "keywords": ["shopping", "cart"],
+    "homepage": "https://indigophp.com",
+    "authors": [
+        {
+            "name": "Márk Sági-Kazár",
+            "email": "mark.sagikazar@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "fuelphp/common": "dev-master",
+        "fuelphp/validation": "dev-master"
+    },
+    "require-dev": {
+        "mockery/mockery": "dev-master@dev"
+    },
+    "autoload": {
+        "psr-0": {
+            "Fuel\\Common\\": "lib/",
+            "Fuel\\Validation\\": "lib/"
+        },
+        "psr-4": {
+            "Indigo\\Cart\\": ["src/", "tests/"]
+        }
+    }
+}
