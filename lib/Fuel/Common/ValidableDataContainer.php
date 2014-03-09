@@ -13,6 +13,7 @@ namespace Fuel\Common;
 
 use Fuel\Validation\ContainerValidator as Validator;
 use Fuel\Validation\RuleProvider\FromArray;
+use InvalidArgumentException;
 
 /**
  * Validable DataContainer
@@ -45,7 +46,7 @@ class ValidableDataContainer extends DataContainer
         if (!$result->isValid()) {
             $error = $result->getErrors();
 
-            throw new \Exception(reset($error));
+            throw new InvalidArgumentException(reset($error));
         }
 
         parent::__construct($data, $readOnly);
@@ -80,9 +81,45 @@ class ValidableDataContainer extends DataContainer
         if (!$result->isValid()) {
             $error = $result->getError($key);
 
-            throw new \Exception($error);
+            throw new InvalidArgumentException($error);
         }
 
         return parent::set($key, $value);
+    }
+
+    public function merge($arg)
+    {
+        if ($this->readOnly)
+        {
+            throw new \RuntimeException('Changing values on this Data Container is not allowed.');
+        }
+
+        $arguments = array_map(function ($array) use (&$valid)
+        {
+            if ($array instanceof DataContainer)
+            {
+                return $array->getContents();
+            }
+
+            return $array;
+
+        }, func_get_args());
+
+        array_unshift($arguments, $this->data);
+        $data = call_user_func_array('Arr::merge', $arguments);
+
+        $result = $this->validator->run($data);
+
+        if (!$result->isValid()) {
+            $error = $result->getErrors();
+
+            throw new InvalidArgumentException(reset($error));
+        }
+
+        $this->data = $data;
+
+        $this->isModified = true;
+
+        return $this;
     }
 }
