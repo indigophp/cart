@@ -13,7 +13,7 @@ namespace Indigo\Cart;
 
 use Indigo\Cart\Store\StoreInterface;
 use Indigo\Cart\Item;
-use Fuel\Common\DataContainer;
+use Fuel\Common\CollectionContainer;
 use Fuel\Common\Arr;
 
 /**
@@ -21,10 +21,11 @@ use Fuel\Common\Arr;
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class Cart extends DataContainer
+class Cart extends CollectionContainer
 {
     protected $id;
     protected $store;
+    protected $tax;
 
     public function __construct(StoreInterface $store, $id = null)
     {
@@ -32,12 +33,13 @@ class Cart extends DataContainer
             $id = uniqid('__CART__', true);
         }
 
+        $data = $store->fetch($id);
+
         $this->id = $id;
         $this->store = $store;
 
-        $items = $store->fetch($id);
 
-        parent::__construct($items);
+        parent::__construct('Indigo\\Cart\\Item', $data);
     }
 
     public function getId()
@@ -54,7 +56,24 @@ class Cart extends DataContainer
     {
         $this->store = $store;
 
+        // Make sure the new store has the data
+        $this->save();
+
         return $this;
+    }
+
+    public function save()
+    {
+        return $this->store->save($this->id, $this->data);
+    }
+
+    public function flush($preserveStore = false)
+    {
+        if ($preserveStore === false) {
+            $this->store->flush($this->id);
+        }
+
+        $this->data = array();
     }
 
     public function add(Item $item)
@@ -63,21 +82,45 @@ class Cart extends DataContainer
 
         if ($this->has($id)) {
             $currentItem = $this->get($id);
-            $currentItem->addQuantity($item->quantity);
+            $currentItem->add($item->quantity);
         } else {
             if (!$item->has('tax')) {
-                $item->setReadOnly(false);
-
                 $item->tax = $this->tax;
             }
 
             // Set parent, but disable the usage
-            $item->setParent($this)->disableParent();
+            // Set item to read-only
+            $item
+                ->setParent($this)
+                ->disableParent()
+                ->setReadOnly();
 
             $this->set($id, $item);
         }
 
         return $this;
+    }
+
+    public function setTax($tax, $percent = true)
+    {
+        if ($precent === true) {
+            $tax = (int) $tax;
+        } else {
+            $tax = (float) $tax;
+        }
+
+        $this->tax = $tax;
+
+        return $this;
+    }
+
+    public function remove($item)
+    {
+        if ($item instanceof Item) {
+            $item = $this->getId();
+        }
+
+        return $this->delete($item);
     }
 
     public function getTotal($tax = true)
@@ -87,6 +130,19 @@ class Cart extends DataContainer
         foreach ($this->data as $id => $item) {
             $total += $item->getSubtotal($tax);
         }
+
+        return $total;
+    }
+
+    public function getTax()
+    {
+        $tax = 0;
+
+        foreach ($this->data as $id => $item) {
+            $tax += $item->getTax();
+        }
+
+        return $tax;
     }
 
     public function getQuantity()

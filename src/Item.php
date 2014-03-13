@@ -11,16 +11,16 @@
 
 namespace Indigo\Cart;
 
-use Fuel\Common\ValidableDataContainer;
+use Fuel\Common\StructContainer;
 
 /**
  * Cart class
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class Item extends ValidableDataContainer
+class Item extends StructContainer
 {
-    protected static $validation = array(
+    protected static $struct = array(
         'id' => array(
             'required',
             'type' => array('integer', 'string'),
@@ -37,11 +37,25 @@ class Item extends ValidableDataContainer
             'required',
             'type' => 'integer',
         ),
-        'tax' => array('type' => 'float'),
+        'tax' => array('type' => array('float', 'integer')),
         'options' => array('type' => 'array'),
     );
 
-    public function addQuantity($quantity)
+    public function getId()
+    {
+        // Keys to ignore in the hashing process
+        $ignoreKeys = array('quantity');
+
+        // Filter ignored keys
+        $hashData = Arr::filterKeys($this->data, $ignoreKeys, true);
+
+        // Get hash
+        $hash = md5(serialize($hashData));
+
+        return $hash;
+    }
+
+    public function add($quantity)
     {
         $this->data['quantity'] += $quantity;
 
@@ -53,10 +67,32 @@ class Item extends ValidableDataContainer
         $price = $this->price;
 
         if ($tax) {
-            $price = $price * (100 + $this->tax) / 100;
+            $price += $this->getTax();
         }
 
         return $price;
+    }
+
+    public function getTax()
+    {
+        if (is_float($this->tax)) {
+            return $this->tax;
+        }
+
+        return $this->price * $this->tax / 100;
+    }
+
+    public function setTax($tax, $percent = true)
+    {
+        if ($precent === true) {
+            $tax = (int) $tax;
+        } else {
+            $tax = (float) $tax;
+        }
+
+        $this->tax = $tax;
+
+        return $this;
     }
 
     public function getSubtotal($tax = true)
