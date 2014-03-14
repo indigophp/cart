@@ -33,7 +33,7 @@ class Cart extends CollectionContainer
             $id = uniqid('__CART__', true);
         }
 
-        $data = $store->fetch($id);
+        $data = $store->get($id);
 
         $this->id = $id;
         $this->store = $store;
@@ -52,28 +52,20 @@ class Cart extends CollectionContainer
         return $this->store;
     }
 
-    public function setStore(StoreInterface $store)
-    {
-        $this->store = $store;
-
-        // Make sure the new store has the data
-        $this->save();
-
-        return $this;
-    }
-
     public function save()
     {
         return $this->store->save($this->id, $this->data);
     }
 
-    public function flush($preserveStore = false)
+    public function delete($preserveStore = false)
     {
         if ($preserveStore === false) {
-            $this->store->flush($this->id);
+            $this->store->delete($this->id);
         }
 
         $this->data = array();
+
+        return true;
     }
 
     public function add(Item $item)
@@ -84,7 +76,7 @@ class Cart extends CollectionContainer
             $currentItem = $this->get($id);
             $currentItem->add($item->quantity);
         } else {
-            if (!$item->has('tax')) {
+            if ($item->has('tax') === false and isset($this->tax)) {
                 $item->tax = $this->tax;
             }
 
@@ -101,9 +93,14 @@ class Cart extends CollectionContainer
         return $this;
     }
 
+    public function getTax()
+    {
+        return $this->tax;
+    }
+
     public function setTax($tax, $percent = true)
     {
-        if ($precent === true) {
+        if ($percent === true) {
             $tax = (int) $tax;
         } else {
             $tax = (float) $tax;
@@ -112,15 +109,6 @@ class Cart extends CollectionContainer
         $this->tax = $tax;
 
         return $this;
-    }
-
-    public function remove($item)
-    {
-        if ($item instanceof Item) {
-            $item = $this->getId();
-        }
-
-        return $this->delete($item);
     }
 
     public function getTotal($tax = true)
@@ -134,12 +122,12 @@ class Cart extends CollectionContainer
         return $total;
     }
 
-    public function getTax()
+    public function getTotalTax()
     {
         $tax = 0;
 
         foreach ($this->data as $id => $item) {
-            $tax += $item->getTax();
+            $tax += $item->getTax() * $item->quantity;
         }
 
         return $tax;

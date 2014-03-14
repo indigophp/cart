@@ -12,6 +12,7 @@
 namespace Indigo\Cart;
 
 use Fuel\Common\StructContainer;
+use Fuel\Common\Arr;
 
 /**
  * Cart class
@@ -35,7 +36,8 @@ class Item extends StructContainer
         ),
         'quantity' => array(
             'required',
-            'type' => 'integer',
+            'type'       => 'integer',
+            'numericMin' => 1,
         ),
         'tax' => array('type' => array('float', 'integer')),
         'options' => array('type' => 'array'),
@@ -84,7 +86,7 @@ class Item extends StructContainer
 
     public function setTax($tax, $percent = true)
     {
-        if ($precent === true) {
+        if ($percent === true) {
             $tax = (int) $tax;
         } else {
             $tax = (float) $tax;

@@ -31,9 +31,11 @@ class SessionStore implements StoreInterface
     /**
      * {@inheritdoc}
      */
-    public function save($cartId, $data)
+    public function save($cartId, array $data)
     {
-        return Arr::set($_SESSION, $cartId, $data);
+        Arr::set($_SESSION, $cartId, $data);
+
+        return true;
     }
 
     /**
