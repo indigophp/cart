@@ -21,9 +21,9 @@ use Fuel\Validation\RuleProvider\FromArray;
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class StructContainer extends ValidationContainer
+abstract class StructContainer extends ValidationContainer
 {
-    protected static $struct = [];
+    protected static $struct = array();
 
     protected static $validatorClass = 'Fuel\\Validation\\ContainerValidator';
 
