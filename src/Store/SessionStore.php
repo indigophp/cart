@@ -23,7 +23,7 @@ class SessionStore implements StoreInterface
     /**
      * {@inheritdoc}
      */
-    public function fetch($cartId)
+    public function get($cartId)
     {
         return Arr::get($_SESSION, $cartId, array());
     }
@@ -33,14 +33,14 @@ class SessionStore implements StoreInterface
      */
     public function save($cartId, $data)
     {
-        Arr::set($_SESSION, $cartId, $data);
+        return Arr::set($_SESSION, $cartId, $data);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function flush($cartId)
+    public function delete($cartId)
     {
-        Arr::delete($_SESSION, $cartId);
+        return Arr::delete($_SESSION, $cartId);
     }
 }

@@ -21,15 +21,15 @@ namespace Indigo\Cart\Store;
 interface StoreInterface
 {
     /**
-     * Fetch data from the store
+     * Get data from the store
      *
      * @param  string $cartId
      * @return array Array of items and cart settings
      */
-    public function fetch($cartId);
+    public function get($cartId);
 
     /**
-     * Save items and cart settings to store
+     * Save items to store
      *
      * @param  string $cartId
      * @param  array  $data
@@ -38,10 +38,10 @@ interface StoreInterface
     public function save($cartId, array $data);
 
     /**
-     * Flush the cart from the store
+     * Delete the cart from the store
      *
      * @param  string $cartId
      * @return boolean
      */
-    public function flush($cartId);
+    public function delete($cartId);
 }
