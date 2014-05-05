@@ -23,7 +23,18 @@ use Fuel\Common\Arr;
  */
 class Cart extends Collection
 {
+    /**
+     * Cart ID
+     *
+     * @var string
+     */
     protected $id;
+
+    /**
+     * Store
+     *
+     * @var StoreInterface
+     */
     protected $store;
 
     public function __construct(StoreInterface $store, $id = null)
@@ -41,11 +52,21 @@ class Cart extends Collection
         parent::__construct(new Type('Indigo\\Cart\\Item'), $data);
     }
 
+    /**
+     * Get Cart ID
+     *
+     * @return string
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * Get Store
+     *
+     * @return StoreInterface
+     */
     public function getStore()
     {
         return $this->store;
@@ -67,6 +88,12 @@ class Cart extends Collection
         return true;
     }
 
+    /**
+     * Add item to Cart
+     *
+     * @param Item $item
+     * @return Cart
+     */
     public function add(Item $item)
     {
         $id = $item->getId();
@@ -88,7 +115,13 @@ class Cart extends Collection
         return $this;
     }
 
-    public function getTotal($tax = true)
+    /**
+     * Get total
+     *
+     * @param  boolean $tax Get taxed price
+     * @return float
+     */
+    public function getTotal($tax = false)
     {
         $total = 0;
 
@@ -99,6 +132,11 @@ class Cart extends Collection
         return $total;
     }
 
+    /**
+     * Get total tax
+     *
+     * @return float
+     */
     public function getTax()
     {
         $tax = 0;
@@ -110,6 +148,11 @@ class Cart extends Collection
         return $tax;
     }
 
+    /**
+     * Get total quantity
+     *
+     * @return int
+     */
     public function getQuantity()
     {
         return Arr::sum($this->data, 'quantity');
