@@ -73,7 +73,7 @@ class Cart extends Collection
 
         if ($this->has($id)) {
             $currentItem = $this->get($id);
-            $currentItem->add($item->quantity);
+            $currentItem->changeQuantity($item->quantity);
         } else {
             // Set parent, but disable the usage
             // Set item to read-only

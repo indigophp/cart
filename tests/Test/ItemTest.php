@@ -37,18 +37,18 @@ class ItemTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ::setQuantity
+     * @covers ::changeQuantity
      * @group  Cart
      */
-    public function testSetQuantity()
+    public function testChangeQuantity()
     {
-        $item = $this->item->setQuantity(1);
+        $item = $this->item->changeQuantity(1);
 
         $this->assertInstanceOf('Indigo\\Cart\\Item', $item);
 
         $this->assertEquals(2, $item->quantity);
 
-        $item->setQuantity(-1);
+        $item->changeQuantity(-1);
 
         $this->assertEquals(1, $item->quantity);
     }

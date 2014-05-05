@@ -75,7 +75,7 @@ class Item extends Struct
      * @param int   $quantity
      * @return Item
      */
-    public function setQuantity($quantity)
+    public function changeQuantity($quantity)
     {
         $this->data['quantity'] += (int) $quantity;
 
