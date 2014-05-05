@@ -21,6 +21,9 @@ use Fuel\Common\Arr;
  */
 class Item extends Struct
 {
+    /**
+     * {@inheritdocs}
+     */
     protected $struct = array(
         'id' => array(
             'required',
@@ -43,13 +46,22 @@ class Item extends Struct
         'options' => array('type' => 'array'),
     );
 
+    /**
+     * Keys to ignore in the hashing process
+     *
+     * @var array
+     */
+    protected $ignoreKeys = array('quantity');
+
+    /**
+     * Get ID
+     *
+     * @return string
+     */
     public function getId()
     {
-        // Keys to ignore in the hashing process
-        $ignoreKeys = array('quantity');
-
         // Filter ignored keys
-        $hashData = Arr::filterKeys($this->data, $ignoreKeys, true);
+        $hashData = Arr::filterKeys($this->data, $this->ignoreKeys, true);
 
         // Get hash
         $hash = md5(serialize($hashData));
@@ -57,14 +69,26 @@ class Item extends Struct
         return $hash;
     }
 
-    public function add($quantity)
+    /**
+     * Update quantity without messing with read-only
+     *
+     * @param int   $quantity
+     * @return Item
+     */
+    public function setQuantity($quantity)
     {
-        $this->data['quantity'] += $quantity;
+        $this->data['quantity'] += (int) $quantity;
 
         return $this;
     }
 
-    public function getPrice($tax = true)
+    /**
+     * Get price
+     *
+     * @param  boolean $tax Get taxed price
+     * @return float
+     */
+    public function getPrice($tax = false)
     {
         $price = $this->price;
 
@@ -75,6 +99,11 @@ class Item extends Struct
         return $price;
     }
 
+    /**
+     * Get tax
+     *
+     * @return float
+     */
     public function getTax()
     {
         if (is_float($this->tax)) {
@@ -84,20 +113,13 @@ class Item extends Struct
         return $this->price * $this->tax / 100;
     }
 
-    public function setTax($tax, $percent = true)
-    {
-        if ($percent === true) {
-            $tax = (int) $tax;
-        } else {
-            $tax = (float) $tax;
-        }
-
-        $this->tax = $tax;
-
-        return $this;
-    }
-
-    public function getSubtotal($tax = true)
+    /**
+     * Get subtotal
+     *
+     * @param  boolean $tax Get taxed subtotal
+     * @return float
+     */
+    public function getSubtotal($tax = false)
     {
         $price = $this->getPrice($tax);
 
