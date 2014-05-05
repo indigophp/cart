@@ -25,7 +25,6 @@ class Cart extends Collection
 {
     protected $id;
     protected $store;
-    protected $tax;
 
     public function __construct(StoreInterface $store, $id = null)
     {
@@ -76,10 +75,6 @@ class Cart extends Collection
             $currentItem = $this->get($id);
             $currentItem->add($item->quantity);
         } else {
-            if ($item->has('tax') === false and isset($this->tax)) {
-                $item->tax = $this->tax;
-            }
-
             // Set parent, but disable the usage
             // Set item to read-only
             $item
@@ -89,24 +84,6 @@ class Cart extends Collection
 
             $this->set($id, $item);
         }
-
-        return $this;
-    }
-
-    public function getTax()
-    {
-        return $this->tax;
-    }
-
-    public function setTax($tax, $percent = true)
-    {
-        if ($percent === true) {
-            $tax = (int) $tax;
-        } else {
-            $tax = (float) $tax;
-        }
-
-        $this->tax = $tax;
 
         return $this;
     }
@@ -122,7 +99,7 @@ class Cart extends Collection
         return $total;
     }
 
-    public function getTotalTax()
+    public function getTax()
     {
         $tax = 0;
 
