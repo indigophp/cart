@@ -6,8 +6,10 @@ use Indigo\Cart\Store\SessionStore;
 
 class SessionStoreTest extends StoreTest
 {
-    protected function forge()
+    public function setUp()
     {
-        return new SessionStore;
+        $this->store = new SessionStore;
+
+        parent::setUp();
     }
 }

@@ -12,19 +12,16 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "fuelphp/common": "dev-master",
+        "indigophp/container": "dev-develop",
         "fuelphp/validation": "dev-master"
     },
     "require-dev": {
         "mockery/mockery": "dev-master@dev"
     },
     "autoload": {
-        "psr-0": {
-            "Fuel\\Common\\": "lib/",
-            "Fuel\\Validation\\": "lib/"
-        },
         "psr-4": {
             "Indigo\\Cart\\": ["src/", "tests/"]
         }
-    }
+    },
+    "minimum-stability": "dev"
 }

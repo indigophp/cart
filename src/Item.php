@@ -11,7 +11,7 @@
 
 namespace Indigo\Cart;
 
-use Fuel\Common\StructContainer;
+use Indigo\Container\Struct;
 use Fuel\Common\Arr;
 
 /**
@@ -19,9 +19,9 @@ use Fuel\Common\Arr;
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class Item extends StructContainer
+class Item extends Struct
 {
-    protected static $struct = array(
+    protected $struct = array(
         'id' => array(
             'required',
             'type' => array('integer', 'string'),

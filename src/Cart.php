@@ -12,8 +12,8 @@
 namespace Indigo\Cart;
 
 use Indigo\Cart\Store\StoreInterface;
-use Indigo\Cart\Item;
-use Fuel\Common\CollectionContainer;
+use Indigo\Container\Collection;
+use Fuel\Validation\Rule\Type;
 use Fuel\Common\Arr;
 
 /**
@@ -21,7 +21,7 @@ use Fuel\Common\Arr;
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class Cart extends CollectionContainer
+class Cart extends Collection
 {
     protected $id;
     protected $store;
@@ -39,7 +39,7 @@ class Cart extends CollectionContainer
         $this->store = $store;
 
 
-        parent::__construct('Indigo\\Cart\\Item', $data);
+        parent::__construct(new Type('Indigo\\Cart\\Item'), $data);
     }
 
     public function getId()
