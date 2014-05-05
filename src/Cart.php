@@ -23,9 +23,19 @@ use Fuel\Common\Arr;
  */
 class Cart extends Collection
 {
+    /**
+     * Cart ID
+     *
+     * @var string
+     */
     protected $id;
+
+    /**
+     * Store
+     *
+     * @var StoreInterface
+     */
     protected $store;
-    protected $tax;
 
     public function __construct(StoreInterface $store, $id = null)
     {
@@ -42,11 +52,21 @@ class Cart extends Collection
         parent::__construct(new Type('Indigo\\Cart\\Item'), $data);
     }
 
+    /**
+     * Get Cart ID
+     *
+     * @return string
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * Get Store
+     *
+     * @return StoreInterface
+     */
     public function getStore()
     {
         return $this->store;
@@ -68,18 +88,20 @@ class Cart extends Collection
         return true;
     }
 
+    /**
+     * Add item to Cart
+     *
+     * @param Item $item
+     * @return Cart
+     */
     public function add(Item $item)
     {
         $id = $item->getId();
 
         if ($this->has($id)) {
             $currentItem = $this->get($id);
-            $currentItem->add($item->quantity);
+            $currentItem->changeQuantity($item->quantity);
         } else {
-            if ($item->has('tax') === false and isset($this->tax)) {
-                $item->tax = $this->tax;
-            }
-
             // Set parent, but disable the usage
             // Set item to read-only
             $item
@@ -93,25 +115,13 @@ class Cart extends Collection
         return $this;
     }
 
-    public function getTax()
-    {
-        return $this->tax;
-    }
-
-    public function setTax($tax, $percent = true)
-    {
-        if ($percent === true) {
-            $tax = (int) $tax;
-        } else {
-            $tax = (float) $tax;
-        }
-
-        $this->tax = $tax;
-
-        return $this;
-    }
-
-    public function getTotal($tax = true)
+    /**
+     * Get total
+     *
+     * @param  boolean $tax Get taxed price
+     * @return float
+     */
+    public function getTotal($tax = false)
     {
         $total = 0;
 
@@ -122,7 +132,12 @@ class Cart extends Collection
         return $total;
     }
 
-    public function getTotalTax()
+    /**
+     * Get total tax
+     *
+     * @return float
+     */
+    public function getTax()
     {
         $tax = 0;
 
@@ -133,6 +148,11 @@ class Cart extends Collection
         return $tax;
     }
 
+    /**
+     * Get total quantity
+     *
+     * @return int
+     */
     public function getQuantity()
     {
         return Arr::sum($this->data, 'quantity');

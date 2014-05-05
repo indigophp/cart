@@ -21,12 +21,8 @@ abstract class StoreTest extends \PHPUnit_Framework_TestCase
             ))
         );
 
-        $this->store = $this->forge();
-
         $this->store->save('cart_01', $this->data);
     }
-
-    abstract protected function forge();
 
     public function testDelete()
     {
