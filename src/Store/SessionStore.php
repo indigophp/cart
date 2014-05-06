@@ -21,12 +21,29 @@ use Fuel\Common\Arr;
  */
 class SessionStore implements StoreInterface
 {
+    protected $sessionKey;
+
+    public function __construct($sessionKey = 'cart')
+    {
+        $this->sessionKey = $sessionKey;
+    }
+
+    /**
+     * Return session key
+     *
+     * @return string
+     */
+    public function getSessionKey()
+    {
+        return $this->sessionKey;
+    }
+
     /**
      * {@inheritdoc}
      */
     public function load(Cart $cart)
     {
-        $data = Arr::get($_SESSION, $cart->getId(), array());
+        $data = Arr::get($_SESSION, $this->sessionKey . '.' . $cart->getId(), array());
         $cart->setContents($data);
 
         return true;
@@ -38,7 +55,7 @@ class SessionStore implements StoreInterface
     public function save(Cart $cart)
     {
         $data = $cart->getContents();
-        Arr::set($_SESSION, $cart->getId(), $data);
+        Arr::set($_SESSION, $this->sessionKey . '.' . $cart->getId(), $data);
 
         return true;
     }
@@ -48,6 +65,6 @@ class SessionStore implements StoreInterface
      */
     public function delete(Cart $cart)
     {
-        return Arr::delete($_SESSION, $cart->getId());
+        return Arr::delete($_SESSION, $this->sessionKey . '.' . $cart->getId());
     }
 }

@@ -17,4 +17,16 @@ class SessionStoreTest extends StoreTest
 
         parent::setUp();
     }
+
+    /**
+     * @covers ::__construct
+     * @covers ::getSessionKey
+     * @group  Cart
+     */
+    public function testSessionKey()
+    {
+        $store = new SessionStore('cart_key');
+
+        $this->assertEquals('cart_key', $store->getSessionKey());
+    }
 }
