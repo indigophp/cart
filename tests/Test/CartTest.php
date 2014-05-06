@@ -31,16 +31,7 @@ class CartTest extends \PHPUnit_Framework_TestCase
         $store = new SessionStore;
         $store->save('cart_01', $data);
 
-        $this->cart = new Cart($store, 'cart_01');
-    }
-
-    public function testCart()
-    {
-        $this->assertEquals('cart_01', $this->cart->getId());
-        $this->assertInstanceOf('Indigo\\Cart\\Store\\SessionStore', $this->cart->getStore());
-        $this->assertTrue($this->cart->save());
-        $this->assertTrue($this->cart->delete());
-        $this->assertTrue($this->cart->delete(true));
+        $this->cart = new Cart('cart_01');
     }
 
     public function testNewAdd()

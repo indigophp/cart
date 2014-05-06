@@ -30,26 +30,15 @@ class Cart extends Collection
      */
     protected $id;
 
-    /**
-     * Store
-     *
-     * @var StoreInterface
-     */
-    protected $store;
-
-    public function __construct(StoreInterface $store, $id = null)
+    public function __construct($id = null)
     {
         if (empty($id)) {
             $id = uniqid('__CART__', true);
         }
 
-        $data = $store->get($id);
-
         $this->id = $id;
-        $this->store = $store;
 
-
-        parent::__construct(new Type('Indigo\\Cart\\Item'), $data);
+        parent::__construct(new Type('Indigo\\Cart\\Item'));
     }
 
     /**
@@ -60,32 +49,6 @@ class Cart extends Collection
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Get Store
-     *
-     * @return StoreInterface
-     */
-    public function getStore()
-    {
-        return $this->store;
-    }
-
-    public function save()
-    {
-        return $this->store->save($this->id, $this->data);
-    }
-
-    public function delete($preserveStore = false)
-    {
-        if ($preserveStore === false) {
-            $this->store->delete($this->id);
-        }
-
-        $this->data = array();
-
-        return true;
     }
 
     /**
