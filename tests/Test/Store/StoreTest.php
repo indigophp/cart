@@ -2,40 +2,59 @@
 
 namespace Indigo\Cart\Test\Store;
 
+use Indigo\Cart\Cart;
 use Indigo\Cart\Item;
 
 abstract class StoreTest extends \PHPUnit_Framework_TestCase
 {
     protected $store;
-    protected $data;
+    protected $cart;
 
     protected function setUp()
     {
-        $this->data = array(
-            new Item(array(
-                'id'       => 1,
-                'name'     => 'Some Product',
-                'price'    => 1.000,
-                'quantity' => 1,
-                'tax'      => 27,
-            ))
-        );
+        $this->cart = \Mockery::mock('Indigo\\Cart\\Cart', function($mock) {
+            $mock->shouldReceive('getId')
+                ->andReturn(uniqid('__CART__', true));
 
-        $this->store->save('cart_01', $this->data);
+            $mock->shouldReceive('getContents')
+                ->andReturn(array());
+
+            $mock->shouldReceive('setContents')
+                ->andReturn($mock);
+        });
+
+        $this->store->save($this->cart);
     }
 
-    public function testDelete()
+    public function tearDown()
     {
-        $this->assertTrue($this->store->delete('cart_01'));
+        \Mockery::close();
     }
 
+    /**
+     * @covers ::load
+     * @group  Cart
+     */
+    public function testLoad()
+    {
+        $this->assertTrue($this->store->load($this->cart));
+    }
+
+    /**
+     * @covers ::save
+     * @group  Cart
+     */
     public function testSave()
     {
-        $this->assertTrue($this->store->save('cart_01', array()));
+        $this->assertTrue($this->store->save($this->cart));
     }
 
-    public function testGet()
+    /**
+     * @covers ::delete
+     * @group  Cart
+     */
+    public function testDelete()
     {
-        $this->assertEquals($this->data, $this->store->get('cart_01'));
+        $this->assertTrue($this->store->delete($this->cart));
     }
 }
