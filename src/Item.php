@@ -72,7 +72,7 @@ class Item extends Struct
     /**
      * Update quantity without messing with read-only
      *
-     * @param int   $quantity
+     * @param  int  $quantity
      * @return Item
      */
     public function changeQuantity($quantity)

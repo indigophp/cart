@@ -11,7 +11,6 @@
 
 namespace Indigo\Cart;
 
-use Indigo\Cart\Store\StoreInterface;
 use Indigo\Container\Collection;
 use Fuel\Validation\Rule\Type;
 use Fuel\Common\Arr;
@@ -54,7 +53,7 @@ class Cart extends Collection
     /**
      * Add item to Cart
      *
-     * @param Item $item
+     * @param  Item $item
      * @return Cart
      */
     public function add(Item $item)

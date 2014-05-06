@@ -25,7 +25,7 @@ interface StoreInterface
     /**
      * Load data from store
      *
-     * @param  Cart $cart
+     * @param  Cart    $cart
      * @return boolean
      */
     public function load(Cart $cart);
@@ -33,7 +33,7 @@ interface StoreInterface
     /**
      * Save data to store
      *
-     * @param  Cart $cart
+     * @param  Cart    $cart
      * @return boolean
      */
     public function save(Cart $cart);
@@ -41,7 +41,7 @@ interface StoreInterface
     /**
      * Delete the cart from the store
      *
-     * @param  Cart $cart
+     * @param  Cart    $cart
      * @return boolean
      */
     public function delete(Cart $cart);
