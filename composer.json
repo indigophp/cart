@@ -20,7 +20,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Indigo\\Cart\\": ["src/", "tests/"]
+            "Indigo\\Cart\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Indigo\\Cart\\Test\\": "tests/"
         }
     },
     "minimum-stability": "dev"
