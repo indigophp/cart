@@ -133,4 +133,14 @@ class CartTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals(1, $this->cart->getQuantity());
     }
+
+    /**
+     * @covers ::reset
+     * @group  Cart
+     */
+    public function testReset()
+    {
+        $this->assertTrue($this->cart->reset());
+        $this->assertEquals(array(), $this->cart->getContents());
+    }
 }

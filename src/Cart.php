@@ -119,4 +119,16 @@ class Cart extends Collection
     {
         return Arr::sum($this->data, 'quantity');
     }
+
+    /**
+     * Empty the cart
+     *
+     * @return boolean
+     */
+    public function reset()
+    {
+        $this->data = array();
+
+        return true;
+    }
 }
