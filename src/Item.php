@@ -13,14 +13,17 @@ namespace Indigo\Cart;
 
 use Indigo\Container\Struct;
 use Fuel\Common\Arr;
+use Serializable;
 
 /**
  * Cart class
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class Item extends Struct
+class Item extends Struct implements Serializable
 {
+    use \Indigo\Container\Serializable;
+
     /**
      * {@inheritdocs}
      */
