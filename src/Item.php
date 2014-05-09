@@ -16,7 +16,7 @@ use Fuel\Common\Arr;
 use Serializable;
 
 /**
- * Cart class
+ * Cart item class
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
