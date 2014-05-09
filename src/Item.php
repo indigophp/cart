@@ -22,7 +22,7 @@ use Serializable;
  */
 class Item extends Struct implements Serializable
 {
-    use \Indigo\Container\Serializable;
+    use \Indigo\Container\Helper\Serializable;
 
     /**
      * {@inheritdocs}

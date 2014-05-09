@@ -22,6 +22,8 @@ use Fuel\Common\Arr;
  */
 class Cart extends Collection
 {
+    use \Indigo\Container\Helper\Reset;
+
     /**
      * Cart ID
      *
@@ -118,17 +120,5 @@ class Cart extends Collection
     public function getQuantity()
     {
         return Arr::sum($this->data, 'quantity');
-    }
-
-    /**
-     * Empty the cart
-     *
-     * @return boolean
-     */
-    public function reset()
-    {
-        $this->data = array();
-
-        return true;
     }
 }
