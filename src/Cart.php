@@ -20,7 +20,7 @@ use Fuel\Common\Arr;
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class Cart extends Collection
+class Cart extends Collection implements CartInterface
 {
     use \Indigo\Container\Helper\Reset;
 
@@ -53,12 +53,9 @@ class Cart extends Collection
     }
 
     /**
-     * Add item to Cart
-     *
-     * @param  Item $item
-     * @return Cart
+     * {@inheritdocs}
      */
-    public function add(Item $item)
+    public function add(ItemInterface $item)
     {
         $id = $item->getId();
 
@@ -80,10 +77,7 @@ class Cart extends Collection
     }
 
     /**
-     * Get total
-     *
-     * @param  boolean $options Get price with options
-     * @return float
+     * {@inheritdocs}
      */
     public function getTotal($options = false)
     {
@@ -113,9 +107,7 @@ class Cart extends Collection
     }
 
     /**
-     * Get total quantity
-     *
-     * @return int
+     * {@inheritdocs}
      */
     public function getQuantity()
     {

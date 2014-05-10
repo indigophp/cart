@@ -17,11 +17,11 @@ use Fuel\Validation\Rule\Type;
 use Serializable;
 
 /**
- * Cart item class
+ * Item class
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class Item extends Struct implements Serializable
+class Item extends Struct implements ItemInterface, Serializable
 {
     use \Indigo\Container\Helper\Serializable;
 
@@ -58,9 +58,7 @@ class Item extends Struct implements Serializable
     protected $ignoreKeys = array('quantity');
 
     /**
-     * Get ID
-     *
-     * @return string
+     * {@inheritdocs}
      */
     public function getId()
     {
@@ -74,10 +72,7 @@ class Item extends Struct implements Serializable
     }
 
     /**
-     * Update quantity without messing with read-only
-     *
-     * @param  int  $quantity
-     * @return Item
+     * {@inheritdocs}
      */
     public function changeQuantity($quantity)
     {
@@ -87,10 +82,7 @@ class Item extends Struct implements Serializable
     }
 
     /**
-     * Get price
-     *
-     * @param  boolean $option Include option(s) in price
-     * @return float
+     * {@inheritdocs}
      */
     public function getPrice($option = false)
     {
@@ -120,10 +112,7 @@ class Item extends Struct implements Serializable
     }
 
     /**
-     * Get subtotal
-     *
-     * @param  boolean $option Include option in price
-     * @return float
+     * {@inheritdocs}
      */
     public function getSubtotal($option = false)
     {
