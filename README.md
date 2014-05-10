@@ -32,6 +32,7 @@ Instantiate cart and fill it with items:
 ``` php
 use Indigo\Cart\Cart;
 use Indigo\Cart\Item;
+use Indigo\Cart\Option\Tax;
 use Indigo\Cart\Store\SessionStore;
 
 $cart = new Cart('cart_id');
@@ -43,29 +44,28 @@ $cart->add(
             'name'     => 'Some Product',
             'price'    => 1.000,
             'quantity' => 1,
-            'tax'      => 27,
+            'option'   => new Tax(array(
+                'id'    => 1,
+                'name'  => 'VAT',
+                'value' => 10,
+                'mode'  => Tax::PERCENT,
+            )),
         )
     )
 );
 
-// Get taxed price
+// Get price with option(s)
 $cart->getTotal(true);
-
-// Get total tax
-$cart->getTax();
 
 // Get item count (item * quantity)
 $cart->getQuantity();
 
 foreach($cart as $id => $item) {
-    // Get taxed subtotal
+    // Get subtotal with option(s)
     $item->getSubtotal(true);
 
-    // Get tax amount of ONE item
-    $item->getTax();
-
-    // Get taxed price
-    $item->getPrice();
+    // Get price with option(s)
+    $item->getPrice(true);
 }
 
 $store = new SessionStore;
@@ -83,6 +83,11 @@ $cart = new Cart('cart_id');
 $store = new SessionStore;
 $store->load($cart);
 ```
+
+Currently available `Option`s:
+* `Option`: General option with a simple value.
+* `Tax`: Tax value with two modes: absolute (simple value) and percent (calculated from price).
+* `Collection`: Collection of Options.
 
 
 ## Testing
