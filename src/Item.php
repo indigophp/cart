@@ -46,7 +46,7 @@ class Item extends Struct implements Serializable
             'numericMin' => 1,
         ),
         'tax' => array('type' => array('float', 'integer')),
-        'options' => array('type' => 'array'),
+        'options' => array('type' => 'Indigo\\Cart\\Options'),
     );
 
     /**
