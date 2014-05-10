@@ -133,15 +133,6 @@ class CartTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ::getTax
-     * @group  Cart
-     */
-    public function testTax()
-    {
-        $this->assertEquals(0.27, $this->cart->getTax());
-    }
-
-    /**
      * @covers ::getQuantity
      * @group  Cart
      */

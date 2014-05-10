@@ -22,14 +22,8 @@ use Fuel\Common\Arr;
  */
 class Cart extends Collection implements CartInterface
 {
+    use \Indigo\Container\Helper\Id;
     use \Indigo\Container\Helper\Reset;
-
-    /**
-     * Cart ID
-     *
-     * @var string
-     */
-    protected $id;
 
     public function __construct($id = null)
     {
@@ -39,17 +33,7 @@ class Cart extends Collection implements CartInterface
 
         $this->id = $id;
 
-        parent::__construct(new Type('Indigo\\Cart\\Item'));
-    }
-
-    /**
-     * Get Cart ID
-     *
-     * @return string
-     */
-    public function getId()
-    {
-        return $this->id;
+        parent::__construct(new Type('Indigo\\Cart\\ItemInterface'));
     }
 
     /**
@@ -88,22 +72,6 @@ class Cart extends Collection implements CartInterface
         }
 
         return $total;
-    }
-
-    /**
-     * Get total tax
-     *
-     * @return float
-     */
-    public function getTax()
-    {
-        $tax = 0;
-
-        foreach ($this->data as $id => $item) {
-            $tax += $item->getTax() * $item->quantity;
-        }
-
-        return $tax;
     }
 
     /**

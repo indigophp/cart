@@ -73,15 +73,6 @@ class ItemTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ::getTax
-     * @group  Cart
-     */
-    public function testTax()
-    {
-        $this->assertEquals($this->item->price * 0.27, $this->item->getTax());
-    }
-
-    /**
      * @covers ::getSubtotal
      * @covers ::getPrice
      * @group  Cart

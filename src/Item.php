@@ -23,6 +23,7 @@ use Serializable;
  */
 class Item extends Struct implements ItemInterface, Serializable
 {
+    use \Indigo\Container\Helper\Id;
     use \Indigo\Container\Helper\Serializable;
 
     /**
@@ -60,20 +61,6 @@ class Item extends Struct implements ItemInterface, Serializable
     /**
      * {@inheritdocs}
      */
-    public function getId()
-    {
-        // Filter ignored keys
-        $hashData = Arr::filterKeys($this->data, $this->ignoreKeys, true);
-
-        // Get hash
-        $hash = md5(serialize($hashData));
-
-        return $hash;
-    }
-
-    /**
-     * {@inheritdocs}
-     */
     public function changeQuantity($quantity)
     {
         $this->data['quantity'] += (int) $quantity;
@@ -93,22 +80,6 @@ class Item extends Struct implements ItemInterface, Serializable
         }
 
         return $price;
-    }
-
-    /**
-     * Get tax
-     *
-     * @return float
-     */
-    public function getTax()
-    {
-        $tax = 0;
-
-        if (isset($this['option'])) {
-            $tax = $this->option->getValueOfType($this->price, new Type('Indigo\\Cart\\Option\\Tax'));
-        }
-
-        return $tax;
     }
 
     /**
