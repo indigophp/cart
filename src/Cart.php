@@ -38,6 +38,20 @@ class Cart extends Collection implements CartInterface
 
     /**
      * {@inheritdocs}
+     *
+     * Cart id must be unique, so the same items should NOT mean the same cart
+     */
+    public function getId()
+    {
+        if (isset($this->id) === false) {
+            $this->id = uniqid('__CART__', true);
+        }
+
+        return $this->id;
+    }
+
+    /**
+     * {@inheritdocs}
      */
     public function add(ItemInterface $item)
     {

@@ -63,6 +63,19 @@ class CartTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers ::getId
+     * @group  Cart
+     */
+    public function testId()
+    {
+        $this->assertEquals('cart_01', $this->cart->getId());
+
+        $this->cart->setId();
+
+        $this->assertNotEquals('cart_01', $this->cart->getId());
+    }
+
+    /**
      * @covers ::add
      * @group  Cart
      */
