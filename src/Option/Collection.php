@@ -15,16 +15,18 @@ use Indigo\Cart\Option\OptionInterface;
 use Indigo\Container\Collection as CollectionContainer;
 use Fuel\Validation\Rule\Type;
 use Fuel\Common\Arr;
+use Serializable;
 
 /**
  * Option collection class
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class Collection extends CollectionContainer implements OptionInterface
+class Collection extends CollectionContainer implements OptionInterface, Serializable
 {
-    use \Indigo\Container\Helper\Insert;
     use \Indigo\Container\Helper\Id;
+    use \Indigo\Container\Helper\Insert;
+    use \Indigo\Container\Helper\Serializable;
 
     public function __construct(array $data = array(), $readOnly = false)
     {
