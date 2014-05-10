@@ -24,7 +24,6 @@ class OptionsTest extends \PHPUnit_Framework_TestCase
                     'id'    => 1,
                     'name'  => 'Red color',
                     'value' => 123.0,
-                    'order' => 10,
                 )
             )
         );
@@ -35,7 +34,16 @@ class OptionsTest extends \PHPUnit_Framework_TestCase
                     'id'    => 2,
                     'name'  => 'VAT',
                     'value' => 27.0,
-                    'order' => 20,
+                )
+            )
+        );
+
+        $this->options->add(
+            new TaxOption(
+                array(
+                    'id'    => 3,
+                    'name'  => 'VAT2',
+                    'value' => 30.0,
                 )
             )
         );
@@ -47,6 +55,7 @@ class OptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testValue()
     {
+        var_dump($this->options->getContents()); exit;
         var_dump($this->options->getValue(1)); exit;
     }
 }

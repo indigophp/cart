@@ -11,7 +11,7 @@
 
 namespace Indigo\Cart;
 
-use Indigo\Cart\Option\Option;
+use Indigo\Cart\Option\OptionInterface;
 use Indigo\Container\Collection;
 use Fuel\Validation\Rule\Type;
 use Fuel\Common\Arr;
@@ -25,16 +25,16 @@ class Options extends Collection
 {
     public function __construct()
     {
-        parent::__construct(new Type('Indigo\\Cart\\Option\\Option'));
+        parent::__construct(new Type('Indigo\\Cart\\Option\\OptionInterface'));
     }
 
     /**
      * Add option to collection
      *
-     * @param  Option           $option
-     * @return OptionCollection
+     * @param  OptionInterface $option
+     * @return Options
      */
-    public function add(Option $option)
+    public function add(OptionInterface $option)
     {
         $id = $option->getId();
 
@@ -53,50 +53,12 @@ class Options extends Collection
     }
 
     /**
-     * {@inheritdocs}
-     */
-    public function setContents(array $data)
-    {
-        $return = parent::setContents($data);
-
-        $this->ensureOrder();
-
-        return $return;
-    }
-
-    /**
-     * {@inheritdocs}
-     */
-    public function set($key, $value)
-    {
-        $return = parent::set($key, $value);
-
-        $this->ensureOrder();
-
-        return $return;
-    }
-
-    /**
-     * {@inheritdocs}
-     */
-    public function merge($arg)
-    {
-        $return = call_user_func_array(array(get_parent_class($this), 'merge'), func_get_args());
-
-        $this->ensureOrder();
-
-        return $return;
-    }
-
-    /**
      * Get value
      *
      * @return float
      */
     public function getValue($price)
     {
-        $this->ensureOrder();
-
         $total = 0;
         // $price = $this->parent->getPrice();
 
@@ -117,8 +79,6 @@ class Options extends Collection
      */
     public function getValueOfType($type)
     {
-        $this->ensureOrder();
-
         $total = 0;
         $price = $this->parent->getPrice();
 
@@ -133,17 +93,5 @@ class Options extends Collection
         }
 
         return $total;
-    }
-
-    /**
-     * Ensure options are processed in the right order
-     *
-     * @return boolean
-     */
-    protected function ensureOrder()
-    {
-        return uasort($this->data, function($a, $b) {
-            return $a['order'] < $b['order'] ? -1 : 1;
-        });
     }
 }
