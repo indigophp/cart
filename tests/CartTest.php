@@ -4,6 +4,8 @@ namespace Indigo\Cart\Test;
 
 use Indigo\Cart\Cart;
 use Indigo\Cart\Item;
+use Indigo\Cart\Options;
+use Indigo\Cart\Option\Tax;
 use Indigo\Cart\Store\SessionStore;
 
 /**
@@ -31,7 +33,14 @@ class CartTest extends \PHPUnit_Framework_TestCase
                     'name'     => 'Some Product',
                     'price'    => 1.000,
                     'quantity' => 1,
-                    'tax'      => 27,
+                    'options'  => new Options(array(
+                        new Tax(array(
+                            'id'    => 1,
+                            'name'  => 'VAT',
+                            'value' => 27,
+                            'mode'  => Tax::PERCENT,
+                        )),
+                    )),
                 )
             )
         );
@@ -91,7 +100,14 @@ class CartTest extends \PHPUnit_Framework_TestCase
                 'name'     => 'Some Product',
                 'price'    => 1.000,
                 'quantity' => 1,
-                'tax'      => 27,
+                'options'  => new Options(array(
+                    new Tax(array(
+                        'id'    => 1,
+                        'name'  => 'VAT',
+                        'value' => 27,
+                        'mode'  => Tax::PERCENT,
+                    )),
+                )),
             )
         );
 

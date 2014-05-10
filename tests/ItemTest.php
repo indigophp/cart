@@ -3,6 +3,8 @@
 namespace Indigo\Cart\Test;
 
 use Indigo\Cart\Item;
+use Indigo\Cart\Options;
+use Indigo\Cart\Option\Tax;
 
 /**
  * @coversDefaultClass \Indigo\Cart\Item
@@ -18,7 +20,14 @@ class ItemTest extends \PHPUnit_Framework_TestCase
             'name'     => 'Some Product',
             'price'    => 1.000,
             'quantity' => 1,
-            'tax'      => 27,
+            'options'  => new Options(array(
+                new Tax(array(
+                    'id'    => 1,
+                    'name'  => 'VAT',
+                    'value' => 27,
+                    'mode'  => Tax::PERCENT,
+                )),
+            )),
         ));
     }
 
@@ -65,19 +74,11 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers ::getTax
-     * @covers ::getPrice
      * @group  Cart
      */
     public function testTax()
     {
-        $this->item->tax = 27;
-
         $this->assertEquals($this->item->price * 0.27, $this->item->getTax());
-
-        $this->item->tax = 1.0;
-
-        $this->assertEquals(1, $this->item->getTax());
-        $this->assertEquals($this->item->price + 1, $this->item->getPrice(true));
     }
 
     /**
