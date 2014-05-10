@@ -13,6 +13,7 @@ namespace Indigo\Cart;
 
 use Indigo\Container\Struct;
 use Fuel\Common\Arr;
+use Fuel\Validation\Rule\Type;
 use Serializable;
 
 /**
@@ -88,15 +89,15 @@ class Item extends Struct implements Serializable
     /**
      * Get price
      *
-     * @param  boolean $tax Get taxed price
+     * @param  boolean $options Include options in price
      * @return float
      */
-    public function getPrice($tax = false)
+    public function getPrice($options = false)
     {
         $price = $this->price;
 
-        if ($tax) {
-            $price += $this->getTax();
+        if ($options and isset($this['options'])) {
+            $price += $this->options->getValue($price);
         }
 
         return $price;
@@ -109,22 +110,24 @@ class Item extends Struct implements Serializable
      */
     public function getTax()
     {
-        if (is_float($this->tax)) {
-            return $this->tax;
+        $tax = 0;
+
+        if (isset($this['options'])) {
+            $tax = $this->options->getValueOfType($this->price, new Type('Indigo\\Cart\\Option\\Tax'));
         }
 
-        return $this->price * $this->tax / 100;
+        return $tax;
     }
 
     /**
      * Get subtotal
      *
-     * @param  boolean $tax Get taxed subtotal
+     * @param  boolean $options Include options in price
      * @return float
      */
-    public function getSubtotal($tax = false)
+    public function getSubtotal($options = false)
     {
-        $price = $this->getPrice($tax);
+        $price = $this->getPrice($options);
 
         return $price * $this->quantity;
     }

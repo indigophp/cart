@@ -28,7 +28,8 @@ interface OptionInterface
     /**
      * Return the value of the option
      *
+     * @param  float $price Price the calculation depends on
      * @return float
      */
-    public function getValue();
+    public function getValue($price);
 }

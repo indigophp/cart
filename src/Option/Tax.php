@@ -16,13 +16,19 @@ use Fuel\Common\Arr;
 use Serializable;
 
 /**
- * Cart item option class
+ * Tax option class
+ *
+ * Calculate tax based on price
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class Option extends Struct implements OptionInterface, Serializable
+class Tax extends Option implements Serializable
 {
-    use \Indigo\Container\Helper\Serializable;
+    /**
+     * Tax calculating mode
+     */
+    const ABSOLUTE = 1;
+    const PERCENT  = 2;
 
     /**
      * {@inheritdocs}
@@ -33,32 +39,19 @@ class Option extends Struct implements OptionInterface, Serializable
             'required',
             'type' => 'string',
         ),
-        'value' => array('type' => 'float'),
+        'value' => array('type' => array('float', 'int')),
+        'mode'  => array('value' => array(Tax::ABSOLUTE, Tax::PERCENT)),
     );
-
-    /**
-     * Keys to ignore in the hashing process
-     *
-     * @var array
-     */
-    protected $ignoreKeys = array();
-
-    /**
-     * {@inheritdocs}
-     */
-    public function getId()
-    {
-        // Filter ignored keys
-        $hashData = Arr::filterKeys($this->data, $this->ignoreKeys, true);
-
-        return md5(serialize($hashData));
-    }
 
     /**
      * {@inheritdocs}
      */
     public function getValue($price)
     {
-        return $this->value;
+        if ($this->get('mode', static::ABSOLUTE) === static::ABSOLUTE) {
+            return $this->value;
+        }
+
+        return $price * $this->value / 100;
     }
 }
