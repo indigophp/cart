@@ -82,15 +82,15 @@ class Cart extends Collection
     /**
      * Get total
      *
-     * @param  boolean $tax Get taxed price
+     * @param  boolean $options Get price with options
      * @return float
      */
-    public function getTotal($tax = false)
+    public function getTotal($options = false)
     {
         $total = 0;
 
         foreach ($this->data as $id => $item) {
-            $total += $item->getSubtotal($tax);
+            $total += $item->getSubtotal($options);
         }
 
         return $total;
