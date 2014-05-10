@@ -47,7 +47,7 @@ class Item extends Struct implements Serializable
             'numericMin' => 1,
         ),
         'tax' => array('type' => array('float', 'integer')),
-        'options' => array('type' => 'Indigo\\Cart\\Options'),
+        'option' => array('type' => 'Indigo\\Cart\\Option\\OptionInterface'),
     );
 
     /**
@@ -89,15 +89,15 @@ class Item extends Struct implements Serializable
     /**
      * Get price
      *
-     * @param  boolean $options Include options in price
+     * @param  boolean $option Include option(s) in price
      * @return float
      */
-    public function getPrice($options = false)
+    public function getPrice($option = false)
     {
         $price = $this->price;
 
-        if ($options and isset($this['options'])) {
-            $price += $this->options->getValue($price);
+        if ($option and isset($this['option'])) {
+            $price += $this->option->getValue($price);
         }
 
         return $price;
@@ -112,8 +112,8 @@ class Item extends Struct implements Serializable
     {
         $tax = 0;
 
-        if (isset($this['options'])) {
-            $tax = $this->options->getValueOfType($this->price, new Type('Indigo\\Cart\\Option\\Tax'));
+        if (isset($this['option'])) {
+            $tax = $this->option->getValueOfType($this->price, new Type('Indigo\\Cart\\Option\\Tax'));
         }
 
         return $tax;
@@ -122,12 +122,12 @@ class Item extends Struct implements Serializable
     /**
      * Get subtotal
      *
-     * @param  boolean $options Include options in price
+     * @param  boolean $option Include option in price
      * @return float
      */
-    public function getSubtotal($options = false)
+    public function getSubtotal($option = false)
     {
-        $price = $this->getPrice($options);
+        $price = $this->getPrice($option);
 
         return $price * $this->quantity;
     }

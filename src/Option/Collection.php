@@ -9,21 +9,22 @@
  * file that was distributed with this source code.
  */
 
-namespace Indigo\Cart;
+namespace Indigo\Cart\Option;
 
 use Indigo\Cart\Option\OptionInterface;
-use Indigo\Container\Collection;
+use Indigo\Container\Collection as CollectionContainer;
 use Fuel\Validation\Rule\Type;
 use Fuel\Common\Arr;
 
 /**
- * Options class
+ * Option collection class
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class Options extends Collection
+class Collection extends CollectionContainer implements OptionInterface
 {
     use \Indigo\Container\Helper\Insert;
+    use \Indigo\Container\Helper\Id;
 
     public function __construct(array $data = array(), $readOnly = false)
     {
@@ -39,7 +40,7 @@ class Options extends Collection
      *
      * @param  OptionInterface $option
      * @param  int|null        $pos    Position to insert at
-     * @return Options
+     * @return Collection
      */
     public function add(OptionInterface $option, $pos = null)
     {
@@ -60,9 +61,7 @@ class Options extends Collection
     }
 
     /**
-     * Get value
-     *
-     * @return float
+     * {@inheritdocs}
      */
     public function getValue($price)
     {
