@@ -15,11 +15,6 @@ class OptionTest extends AbstractOptionTest
         ));
     }
 
-    public function testGetId()
-    {
-        $this->assertEquals(md5(serialize($this->option->getContents())), $this->option->getId());
-    }
-
     public function testGetValue()
     {
         $this->assertEquals(1.0, $this->option->getValue(1.0));
