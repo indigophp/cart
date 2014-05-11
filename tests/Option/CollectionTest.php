@@ -10,7 +10,11 @@ use Indigo\Cart\Option\Tax;
 use Fuel\Validation\Rule\Type;
 
 /**
- * @coversDefaultClass \Indigo\Cart\Option\Collection
+ * Tests for Collection Option
+ *
+ * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
+ *
+ * @coversDefaultClass Indigo\Cart\Option\Collection
  */
 class CollectionTest extends AbstractOptionTest
 {
