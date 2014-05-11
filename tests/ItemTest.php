@@ -7,7 +7,11 @@ use Indigo\Cart\Option\Collection;
 use Indigo\Cart\Option\Tax;
 
 /**
- * @coversDefaultClass \Indigo\Cart\Item
+ * Tests for Item
+ *
+ * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
+ *
+ * @coversDefaultClass Indigo\Cart\Item
  */
 class ItemTest extends \PHPUnit_Framework_TestCase
 {

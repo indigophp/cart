@@ -4,6 +4,13 @@ namespace Indigo\Cart\Test\Option;
 
 use Indigo\Cart\Option\Tax;
 
+/**
+ * Tests for Tax Option
+ *
+ * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
+ *
+ * @coversDefaultClass Indigo\Cart\Option\Tax
+ */
 class TaxTest extends AbstractOptionTest
 {
     public function setUp()
@@ -16,6 +23,10 @@ class TaxTest extends AbstractOptionTest
         ));
     }
 
+    /**
+     * @covers ::getValue
+     * @group  Cart
+     */
     public function testGetValue()
     {
         $this->assertEquals(1.0, $this->option->getValue(1.0));

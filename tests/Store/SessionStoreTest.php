@@ -7,7 +7,11 @@ use Indigo\Cart\Store\SessionStore;
 session_start();
 
 /**
- * @coversDefaultClass \Indigo\Cart\Store\SessionStore
+ * Tests for Session Store
+ *
+ * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
+ *
+ * @coversDefaultClass Indigo\Cart\Store\SessionStore
  */
 class SessionStoreTest extends StoreTest
 {

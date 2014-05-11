@@ -12,7 +12,8 @@ use Indigo\Cart\Store\SessionStore;
  * Tests for Cart
  *
  * @author  Márk Sági-Kazár <mark.sagikazar@gmail.com>
- * @coversDefaultClass  \Indigo\Cart\Cart
+ *
+ * @coversDefaultClass  Indigo\Cart\Cart
  */
 class CartTest extends \PHPUnit_Framework_TestCase
 {
