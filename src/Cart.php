@@ -27,10 +27,6 @@ class Cart extends Collection implements CartInterface
 
     public function __construct($id = null)
     {
-        if (empty($id)) {
-            $id = uniqid('__CART__', true);
-        }
-
         $this->id = $id;
 
         parent::__construct(new Type('Indigo\\Cart\\ItemInterface'));
@@ -44,7 +40,7 @@ class Cart extends Collection implements CartInterface
     public function getId()
     {
         if (isset($this->id) === false) {
-            $this->id = uniqid('__CART__', true);
+            $this->id = uniqid('__CART__');
         }
 
         return $this->id;
