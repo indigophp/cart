@@ -3,32 +3,18 @@
 namespace Indigo\Cart\Test\Store;
 
 use Indigo\Cart\Cart;
-use Indigo\Cart\Item;
 
 abstract class StoreTest extends \PHPUnit_Framework_TestCase
 {
     protected $store;
+
     protected $cart;
 
     protected function setUp()
     {
-        $this->cart = \Mockery::mock('Indigo\\Cart\\Cart', function($mock) {
-            $mock->shouldReceive('getId')
-                ->andReturn(uniqid('__CART__', true));
-
-            $mock->shouldReceive('getContents')
-                ->andReturn(array());
-
-            $mock->shouldReceive('setContents')
-                ->andReturn($mock);
-        });
+        $this->cart = new Cart;
 
         $this->store->save($this->cart);
-    }
-
-    public function tearDown()
-    {
-        \Mockery::close();
     }
 
     /**

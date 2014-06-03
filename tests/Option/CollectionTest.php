@@ -2,10 +2,8 @@
 
 namespace Indigo\Cart\Test\Option;
 
-use Indigo\Cart\Item;
 use Indigo\Cart\Option\Collection;
 use Indigo\Cart\Option\Option;
-use Indigo\Cart\Option\Tax;
 use Fuel\Validation\Rule\Type;
 
 /**
@@ -23,20 +21,13 @@ class CollectionTest extends AbstractOptionTest
     {
         $this->option = new Collection;
 
-        $this->mock = \Mockery::mock('Indigo\\Cart\\Option\\OptionInterface', function($mock) {
-            $mock->shouldReceive('getId')->andReturn('option_id');
-            $mock->shouldReceive('setParent')->andReturn($mock);
-            $mock->shouldReceive('disableParent')->andReturn($mock);
-            $mock->shouldReceive('setReadOnly')->andReturn($mock);
-            $mock->shouldReceive('getValue')->with(1.0)->andReturn(2.0);
-        });
+        $this->mock = new Option(array(
+            'id'    => 1,
+            'name'  => 'Test Option',
+            'value' => 2.00
+        ));
 
         $this->option->add($this->mock);
-    }
-
-    public function tearDown()
-    {
-        \Mockery::close();
     }
 
     /**

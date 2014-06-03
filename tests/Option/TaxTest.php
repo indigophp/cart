@@ -24,6 +24,14 @@ class TaxTest extends AbstractOptionTest
     }
 
     /**
+     * @group  Cart
+     */
+    public function testInstance()
+    {
+        $this->assertInstanceOf('Indigo\\Cart\\Option\\TaxInterface', $this->option);
+    }
+
+    /**
      * @covers ::getValue
      * @group  Cart
      */
