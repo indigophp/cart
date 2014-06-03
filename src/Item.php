@@ -47,7 +47,6 @@ class Item extends Struct implements ItemInterface, Serializable
             'type'       => 'integer',
             'numericMin' => 1,
         ),
-        'tax' => array('type' => array('float', 'integer')),
         'option' => array('type' => 'Indigo\\Cart\\Option\\OptionInterface'),
     );
 
@@ -75,7 +74,7 @@ class Item extends Struct implements ItemInterface, Serializable
     {
         $price = $this->price;
 
-        if ($option and isset($this['option'])) {
+        if ($option and isset($this->data['option'])) {
             $price += $this->option->getValue($price);
         }
 
