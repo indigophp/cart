@@ -25,6 +25,9 @@ class Cart extends Collection implements CartInterface
     use \Indigo\Container\Helper\Id;
     use \Indigo\Container\Helper\Reset;
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function __construct($id = null)
     {
         $this->id = $id;

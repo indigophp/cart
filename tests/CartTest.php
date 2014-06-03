@@ -6,7 +6,6 @@ use Indigo\Cart\Cart;
 use Indigo\Cart\Item;
 use Indigo\Cart\Option\Collection;
 use Indigo\Cart\Option\Tax;
-use Indigo\Cart\Store\SessionStore;
 
 /**
  * Tests for Cart
@@ -19,48 +18,30 @@ class CartTest extends \PHPUnit_Framework_TestCase
 {
     protected $cart;
 
+    protected $item;
+
     protected function setUp()
     {
         $this->cart = new Cart('cart_01');
 
-        $store = new SessionStore;
-
-        $store->load($this->cart);
-
-        $this->cart->add(
-            new Item(
-                array(
-                    'id'       => 1,
-                    'name'     => 'Some Product',
-                    'price'    => 1.000,
-                    'quantity' => 1,
-                    'option'  => new Collection(array(
-                        new Tax(array(
-                            'id'    => 1,
-                            'name'  => 'VAT',
-                            'value' => 27,
-                            'mode'  => Tax::PERCENT,
-                        )),
+        $this->item = new Item(
+            array(
+                'id'       => 1,
+                'name'     => 'Some Product',
+                'price'    => 1.000,
+                'quantity' => 1,
+                'option'  => new Collection(array(
+                    new Tax(array(
+                        'id'    => 1,
+                        'name'  => 'VAT',
+                        'value' => 27,
+                        'mode'  => Tax::PERCENT,
                     )),
-                )
+                )),
             )
         );
-    }
 
-    /**
-     * @covers ::__construct
-     * @covers ::getId
-     * @group  Cart
-     */
-    public function testInstance()
-    {
-        $cart = new Cart('test');
-
-        $this->assertEquals('test', $cart->getId());
-
-        $cart = new Cart();
-
-        $this->assertStringStartsWith('__CART__', $cart->getId());
+        $this->cart->add($this->item);
     }
 
     /**
@@ -96,7 +77,7 @@ class CartTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->cart->has($id));
 
         $cart = $this->cart->add($item);
-        $this->assertInstanceOf('Indigo\\Cart\\Cart', $cart);
+        $this->assertEquals($cart, $this->cart);
 
         $this->assertTrue($this->cart->has($id));
         $this->assertEquals($item, $this->cart->get($id));
@@ -108,28 +89,11 @@ class CartTest extends \PHPUnit_Framework_TestCase
      */
     public function testAdd()
     {
-        $item = new Item(
-            array(
-                'id'       => 1,
-                'name'     => 'Some Product',
-                'price'    => 1.000,
-                'quantity' => 1,
-                'option'  => new Collection(array(
-                    new Tax(array(
-                        'id'    => 1,
-                        'name'  => 'VAT',
-                        'value' => 27,
-                        'mode'  => Tax::PERCENT,
-                    )),
-                )),
-            )
-        );
-
-        $id = $item->getId();
+        $id = $this->item->getId();
 
         $this->assertTrue($this->cart->has($id));
 
-        $this->cart->add($item);
+        $this->cart->add($this->item);
 
         $currentItem = $this->cart->get($id);
 
