@@ -28,12 +28,16 @@ class Option extends Struct implements OptionInterface, Serializable
      * {@inheritdocs}
      */
     protected $struct = array(
-        'id' => array('type' => array('integer', 'string')),
+        'id' => array(
+            'type' => array('integer', 'string')
+        ),
         'name' => array(
             'required',
             'type' => 'string',
         ),
-        'value' => array('type' => 'float'),
+        'value' => array(
+            'type' => 'float'
+        ),
     );
 
     /**

@@ -12,7 +12,6 @@
 namespace Indigo\Cart;
 
 use Indigo\Container\Struct;
-use Fuel\Common\Arr;
 use Fuel\Validation\Rule\Type;
 use Serializable;
 
@@ -47,7 +46,9 @@ class Item extends Struct implements ItemInterface, Serializable
             'type'       => 'integer',
             'numericMin' => 1,
         ),
-        'option' => array('type' => 'Indigo\\Cart\\Option\\OptionInterface'),
+        'option' => array(
+            'type' => 'Indigo\\Cart\\Option\\OptionInterface'
+        ),
     );
 
     /**

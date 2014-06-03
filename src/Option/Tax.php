@@ -30,13 +30,19 @@ class Tax extends Struct implements TaxInterface, Serializable
      * {@inheritdocs}
      */
     protected $struct = array(
-        'id' => array('type' => array('integer', 'string')),
+        'id' => array(
+            'type' => array('integer', 'string')
+        ),
         'name' => array(
             'required',
             'type' => 'string',
         ),
-        'value' => array('type' => array('float', 'int')),
-        'mode'  => array('value' => array(Tax::ABSOLUTE, Tax::PERCENT)),
+        'value' => array(
+            'type' => array('float', 'int')
+        ),
+        'mode'  => array(
+            'value' => array(TaxInterface::ABSOLUTE, TaxInterface::PERCENT)
+        ),
     );
 
     /**
