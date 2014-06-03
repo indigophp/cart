@@ -26,6 +26,9 @@ class Collection extends CollectionContainer implements OptionInterface, Seriali
     use \Indigo\Container\Helper\Insert;
     use \Indigo\Container\Helper\Serializable;
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function __construct(array $data = array(), $readOnly = false)
     {
         parent::__construct(new Type('Indigo\\Cart\\Option\\OptionInterface'), array(), $readOnly);

@@ -3,7 +3,6 @@
 namespace Indigo\Cart\Test\Option;
 
 use Indigo\Cart\Item;
-use Indigo\Cart\Options;
 use Indigo\Cart\Option\Collection;
 use Indigo\Cart\Option\Option;
 use Indigo\Cart\Option\Tax;
@@ -38,17 +37,6 @@ class CollectionTest extends AbstractOptionTest
     public function tearDown()
     {
         \Mockery::close();
-    }
-
-    /**
-     * @covers ::__construct
-     * @group  Cart
-     */
-    public function testInstance()
-    {
-        $option = new Collection(array($this->mock));
-
-        $this->assertEquals(1, count($option));
     }
 
     /**
