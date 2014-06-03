@@ -12,7 +12,6 @@
 namespace Indigo\Cart\Option;
 
 use Indigo\Container\Struct;
-use Fuel\Common\Arr;
 use Serializable;
 
 /**
@@ -22,13 +21,10 @@ use Serializable;
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class Tax extends Option implements Serializable
+class Tax extends Struct implements TaxInterface, Serializable
 {
-    /**
-     * Tax calculating mode
-     */
-    const ABSOLUTE = 1;
-    const PERCENT  = 2;
+    use \Indigo\Container\Helper\Id;
+    use \Indigo\Container\Helper\Serializable;
 
     /**
      * {@inheritdocs}

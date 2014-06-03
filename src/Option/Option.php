@@ -12,7 +12,6 @@
 namespace Indigo\Cart\Option;
 
 use Indigo\Container\Struct;
-use Fuel\Common\Arr;
 use Serializable;
 
 /**

@@ -11,10 +11,8 @@
 
 namespace Indigo\Cart\Option;
 
-use Indigo\Cart\Option\OptionInterface;
 use Indigo\Container\Collection as CollectionContainer;
 use Fuel\Validation\Rule\Type;
-use Fuel\Common\Arr;
 use Serializable;
 
 /**
