@@ -18,7 +18,7 @@ namespace Indigo\Cart\Option;
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-interface TaxInterface extends OptionInterface
+interface TaxInterface
 {
     /**
      * Tax calculating mode

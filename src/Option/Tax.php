@@ -21,7 +21,7 @@ use Serializable;
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class Tax extends Struct implements TaxInterface, Serializable
+class Tax extends Struct implements OptionInterface, TaxInterface, Serializable
 {
     use \Indigo\Container\Helper\Id;
     use \Indigo\Container\Helper\Serializable;
