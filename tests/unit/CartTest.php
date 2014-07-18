@@ -1,26 +1,25 @@
 <?php
 
-namespace Indigo\Cart\Test;
+namespace Indigo\Cart;
 
-use Indigo\Cart\Cart;
-use Indigo\Cart\Item;
 use Indigo\Cart\Option\Collection;
 use Indigo\Cart\Option\Tax;
+use Codeception\TestCase\Test;
 
 /**
  * Tests for Cart
  *
- * @author  Márk Sági-Kazár <mark.sagikazar@gmail.com>
+ * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  *
- * @coversDefaultClass  Indigo\Cart\Cart
+ * @coversDefaultClass Indigo\Cart\Cart
  */
-class CartTest extends \PHPUnit_Framework_TestCase
+class CartTest extends Test
 {
     protected $cart;
 
     protected $item;
 
-    protected function setUp()
+    protected function _before()
     {
         $this->cart = new Cart('cart_01');
 

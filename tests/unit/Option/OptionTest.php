@@ -13,7 +13,7 @@ use Indigo\Cart\Option\Option;
  */
 class OptionTest extends AbstractOptionTest
 {
-    public function setUp()
+    public function _before()
     {
         $this->option = new Option(array(
             'id'    => 1,

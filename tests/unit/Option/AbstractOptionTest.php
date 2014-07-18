@@ -2,7 +2,9 @@
 
 namespace Indigo\Cart\Test\Option;
 
-abstract class AbstractOptionTest extends \PHPUnit_Framework_TestCase
+use Codeception\TestCase\Test;
+
+abstract class AbstractOptionTest extends Test
 {
     /**
      * @var OptionInterface

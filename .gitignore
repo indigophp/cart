@@ -1,4 +1,5 @@
-phpunit.xml
 composer.lock
-/vendor/
-/coverage
+/vendor
+/tests/_output
+
+tests/_output/*

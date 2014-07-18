@@ -1,10 +1,10 @@
 <?php
 
-namespace Indigo\Cart\Test;
+namespace Indigo\Cart;
 
-use Indigo\Cart\Item;
 use Indigo\Cart\Option\Collection;
 use Indigo\Cart\Option\Tax;
+use Codeception\TestCase\Test;
 
 /**
  * Tests for Item
@@ -13,11 +13,11 @@ use Indigo\Cart\Option\Tax;
  *
  * @coversDefaultClass Indigo\Cart\Item
  */
-class ItemTest extends \PHPUnit_Framework_TestCase
+class ItemTest extends Test
 {
     protected $item;
 
-    protected function setUp()
+    protected function _before()
     {
         $this->item = new Item(array(
             'id'       => 1,

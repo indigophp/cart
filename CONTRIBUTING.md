@@ -59,7 +59,7 @@ By making a contribution to this project, I certify that:
 ## Running Tests
 
 ``` bash
-$ phpunit
+$ codecept run
 ```
 
 

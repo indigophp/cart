@@ -93,7 +93,7 @@ Currently available `Option`s:
 ## Testing
 
 ``` bash
-$ phpunit
+$ codecept run
 ```
 
 

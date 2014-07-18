@@ -13,7 +13,7 @@ use Indigo\Cart\Option\Tax;
  */
 class TaxTest extends AbstractOptionTest
 {
-    public function setUp()
+    public function _before()
     {
         $this->option = new Tax(array(
             'id'    => 1,

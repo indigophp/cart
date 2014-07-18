@@ -1,16 +1,17 @@
 <?php
 
-namespace Indigo\Cart\Test\Store;
+namespace Indigo\Cart\Store;
 
 use Indigo\Cart\Cart;
+use Codeception\TestCase\Test;
 
-abstract class StoreTest extends \PHPUnit_Framework_TestCase
+abstract class AbstractStoreTest extends Test
 {
     protected $store;
 
     protected $cart;
 
-    protected function setUp()
+    protected function _before()
     {
         $this->cart = new Cart;
 

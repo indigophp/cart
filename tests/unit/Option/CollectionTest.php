@@ -17,7 +17,7 @@ class CollectionTest extends AbstractOptionTest
 {
     protected $mock;
 
-    protected function setUp()
+    protected function _before()
     {
         $this->option = new Collection;
 
