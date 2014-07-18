@@ -25,7 +25,7 @@ class Option extends Struct implements OptionInterface, Serializable
     use \Indigo\Container\Helper\Serializable;
 
     /**
-     * {@inheritdocs}
+     * {@inheritdoc}
      */
     protected $struct = [
         'id' => [
@@ -41,7 +41,7 @@ class Option extends Struct implements OptionInterface, Serializable
     ];
 
     /**
-     * {@inheritdocs}
+     * {@inheritdoc}
      */
     public function getValue($price)
     {

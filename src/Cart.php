@@ -38,7 +38,7 @@ class Cart extends Collection implements CartInterface
     }
 
     /**
-     * {@inheritdocs}
+     * {@inheritdoc}
      *
      * Cart id must be unique, so the same items should NOT mean the same cart
      */
@@ -52,7 +52,7 @@ class Cart extends Collection implements CartInterface
     }
 
     /**
-     * {@inheritdocs}
+     * {@inheritdoc}
      */
     public function add(ItemInterface $item)
     {
@@ -76,7 +76,7 @@ class Cart extends Collection implements CartInterface
     }
 
     /**
-     * {@inheritdocs}
+     * {@inheritdoc}
      */
     public function getTotal($options = false)
     {
@@ -90,7 +90,7 @@ class Cart extends Collection implements CartInterface
     }
 
     /**
-     * {@inheritdocs}
+     * {@inheritdoc}
      */
     public function getQuantity()
     {

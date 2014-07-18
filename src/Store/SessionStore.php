@@ -49,7 +49,7 @@ class SessionStore implements StoreInterface
     }
 
     /**
-     * {@inheritdocs}
+     * {@inheritdoc}
      */
     public function load(Cart $cart)
     {
@@ -60,7 +60,7 @@ class SessionStore implements StoreInterface
     }
 
     /**
-     * {@inheritdocs}
+     * {@inheritdoc}
      */
     public function save(Cart $cart)
     {
@@ -71,7 +71,7 @@ class SessionStore implements StoreInterface
     }
 
     /**
-     * {@inheritdocs}
+     * {@inheritdoc}
      */
     public function delete(Cart $cart)
     {

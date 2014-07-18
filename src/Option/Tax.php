@@ -27,7 +27,7 @@ class Tax extends Struct implements OptionInterface, TaxInterface, Serializable
     use \Indigo\Container\Helper\Serializable;
 
     /**
-     * {@inheritdocs}
+     * {@inheritdoc}
      */
     protected $struct = [
         'id' => [
@@ -46,7 +46,7 @@ class Tax extends Struct implements OptionInterface, TaxInterface, Serializable
     ];
 
     /**
-     * {@inheritdocs}
+     * {@inheritdoc}
      */
     public function getValue($price)
     {

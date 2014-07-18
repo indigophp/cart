@@ -67,7 +67,7 @@ class Collection extends CollectionContainer implements OptionInterface, Seriali
     }
 
     /**
-     * {@inheritdocs}
+     * {@inheritdoc}
      */
     public function getValue($price)
     {

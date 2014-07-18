@@ -26,7 +26,7 @@ class Item extends Struct implements ItemInterface, Serializable
     use \Indigo\Container\Helper\Serializable;
 
     /**
-     * {@inheritdocs}
+     * {@inheritdoc}
      */
     protected $struct = [
         'id' => [
@@ -59,7 +59,7 @@ class Item extends Struct implements ItemInterface, Serializable
     protected $ignoreKeys = ['quantity'];
 
     /**
-     * {@inheritdocs}
+     * {@inheritdoc}
      */
     public function changeQuantity($quantity)
     {
@@ -69,7 +69,7 @@ class Item extends Struct implements ItemInterface, Serializable
     }
 
     /**
-     * {@inheritdocs}
+     * {@inheritdoc}
      */
     public function getPrice($option = false)
     {
@@ -83,7 +83,7 @@ class Item extends Struct implements ItemInterface, Serializable
     }
 
     /**
-     * {@inheritdocs}
+     * {@inheritdoc}
      */
     public function getSubtotal($option = false)
     {
