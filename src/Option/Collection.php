@@ -45,7 +45,7 @@ class Collection extends CollectionContainer implements OptionInterface, Seriali
      * Add option to collection
      *
      * @param  OptionInterface $option
-     * @param  int|null        $pos    Position to insert at
+     * @param  integer|null    $pos
      * @return Collection
      */
     public function add(OptionInterface $option, $pos = null)
@@ -84,9 +84,10 @@ class Collection extends CollectionContainer implements OptionInterface, Seriali
     }
 
     /**
-     * Get value of type
+     * Returns the value of type
      *
-     * @param  boolean $filter If false, the given types will be filtered out
+     * @param boolean $filter If false, the given types will be filtered out
+     *
      * @return float
      */
     public function getValueOfType($price, Type $type, $filter = true)

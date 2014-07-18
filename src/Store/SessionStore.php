@@ -21,6 +21,11 @@ use Fuel\Common\Arr;
  */
 class SessionStore implements StoreInterface
 {
+    /**
+     * Session key used for store
+     *
+     * @var string
+     */
     protected $sessionKey;
 
     /**
@@ -44,7 +49,7 @@ class SessionStore implements StoreInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritdocs}
      */
     public function load(Cart $cart)
     {
@@ -55,7 +60,7 @@ class SessionStore implements StoreInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritdocs}
      */
     public function save(Cart $cart)
     {
@@ -66,7 +71,7 @@ class SessionStore implements StoreInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritdocs}
      */
     public function delete(Cart $cart)
     {
