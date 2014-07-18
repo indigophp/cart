@@ -1,29 +1,51 @@
 <?php
 
-namespace Indigo\Cart\Test;
+namespace Indigo\Cart;
 
-use Indigo\Cart\Item;
+use Indigo\Cart\Option\Collection;
+use Indigo\Cart\Option\Tax;
+use Codeception\TestCase\Test;
 
 /**
- * @coversDefaultClass \Indigo\Cart\Item
+ * Tests for Item
+ *
+ * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
+ *
+ * @coversDefaultClass Indigo\Cart\Item
  */
-class ItemTest extends \PHPUnit_Framework_TestCase
+class ItemTest extends Test
 {
     protected $item;
 
-    protected function setUp()
+    protected function _before()
     {
         $this->item = new Item(array(
             'id'       => 1,
             'name'     => 'Some Product',
             'price'    => 1.000,
             'quantity' => 1,
-            'tax'      => 27,
+            'option'  => new Collection(array(
+                new Tax(array(
+                    'id'    => 1,
+                    'name'  => 'VAT',
+                    'value' => 27,
+                    'mode'  => Tax::PERCENT,
+                )),
+            )),
         ));
     }
 
     /**
-     * @covers ::getID
+     * @covers ::__construct
+     * @group  Cart
+     */
+    public function testConstruct()
+    {
+        $item = new Item($this->item->getContents());
+    }
+
+    /**
+     * @covers ::getId
      * @group  Cart
      */
     public function testId()
@@ -61,23 +83,6 @@ class ItemTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals($this->item->price, $this->item->getPrice());
         $this->assertEquals($this->item->price * 1.27, $this->item->getPrice(true));
-    }
-
-    /**
-     * @covers ::getTax
-     * @covers ::getPrice
-     * @group  Cart
-     */
-    public function testTax()
-    {
-        $this->item->tax = 27;
-
-        $this->assertEquals($this->item->price * 0.27, $this->item->getTax());
-
-        $this->item->tax = 1.0;
-
-        $this->assertEquals(1, $this->item->getTax());
-        $this->assertEquals($this->item->price + 1, $this->item->getPrice(true));
     }
 
     /**

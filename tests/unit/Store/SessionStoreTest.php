@@ -1,21 +1,23 @@
 <?php
 
-namespace Indigo\Cart\Test\Store;
-
-use Indigo\Cart\Store\SessionStore;
+namespace Indigo\Cart\Store;
 
 session_start();
 
 /**
- * @coversDefaultClass \Indigo\Cart\Store\SessionStore
+ * Tests for Session Store
+ *
+ * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
+ *
+ * @coversDefaultClass Indigo\Cart\Store\SessionStore
  */
-class SessionStoreTest extends StoreTest
+class SessionStoreTest extends AbstractStoreTest
 {
-    public function setUp()
+    public function _before()
     {
         $this->store = new SessionStore;
 
-        parent::setUp();
+        parent::_before();
     }
 
     /**

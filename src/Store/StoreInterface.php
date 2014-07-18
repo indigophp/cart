@@ -23,25 +23,28 @@ use Indigo\Cart\Cart;
 interface StoreInterface
 {
     /**
-     * Load data from store
+     * Loads data from store
      *
-     * @param  Cart $cart
+     * @param Cart $cart
+     *
      * @return boolean
      */
     public function load(Cart $cart);
 
     /**
-     * Save data to store
+     * Saves data to store
      *
-     * @param  Cart $cart
+     * @param Cart $cart
+     *
      * @return boolean
      */
     public function save(Cart $cart);
 
     /**
-     * Delete the cart from the store
+     * Deletes the cart from the store
      *
-     * @param  Cart $cart
+     * @param Cart $cart
+     *
      * @return boolean
      */
     public function delete(Cart $cart);

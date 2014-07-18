@@ -1,34 +1,21 @@
 <?php
 
-namespace Indigo\Cart\Test\Store;
+namespace Indigo\Cart\Store;
 
 use Indigo\Cart\Cart;
-use Indigo\Cart\Item;
+use Codeception\TestCase\Test;
 
-abstract class StoreTest extends \PHPUnit_Framework_TestCase
+abstract class AbstractStoreTest extends Test
 {
     protected $store;
+
     protected $cart;
 
-    protected function setUp()
+    protected function _before()
     {
-        $this->cart = \Mockery::mock('Indigo\\Cart\\Cart', function($mock) {
-            $mock->shouldReceive('getId')
-                ->andReturn(uniqid('__CART__', true));
-
-            $mock->shouldReceive('getContents')
-                ->andReturn(array());
-
-            $mock->shouldReceive('setContents')
-                ->andReturn($mock);
-        });
+        $this->cart = new Cart;
 
         $this->store->save($this->cart);
-    }
-
-    public function tearDown()
-    {
-        \Mockery::close();
     }
 
     /**

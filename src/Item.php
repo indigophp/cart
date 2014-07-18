@@ -12,68 +12,54 @@
 namespace Indigo\Cart;
 
 use Indigo\Container\Struct;
-use Fuel\Common\Arr;
+use Fuel\Validation\Rule\Type;
+use Serializable;
 
 /**
- * Cart class
+ * Item class
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class Item extends Struct
+class Item extends Struct implements ItemInterface, Serializable
 {
+    use \Indigo\Container\Helper\Id;
+    use \Indigo\Container\Helper\Serializable;
+
     /**
      * {@inheritdocs}
      */
-    protected $struct = array(
-        'id' => array(
+    protected $struct = [
+        'id' => [
             'required',
-            'type' => array('integer', 'string'),
-        ),
-        'name' => array(
+            'type' => ['integer', 'string'],
+        ],
+        'name' => [
             'required',
             'type' => 'string',
-        ),
-        'price' => array(
+        ],
+        'price' => [
             'required',
             'type' => 'float',
-        ),
-        'quantity' => array(
+        ],
+        'quantity' => [
             'required',
             'type'       => 'integer',
             'numericMin' => 1,
-        ),
-        'tax' => array('type' => array('float', 'integer')),
-        'options' => array('type' => 'array'),
-    );
+        ],
+        'option' => [
+            'type' => 'Indigo\\Cart\\Option\\OptionInterface'
+        ],
+    ];
 
     /**
      * Keys to ignore in the hashing process
      *
-     * @var array
+     * @var []
      */
-    protected $ignoreKeys = array('quantity');
+    protected $ignoreKeys = ['quantity'];
 
     /**
-     * Get ID
-     *
-     * @return string
-     */
-    public function getId()
-    {
-        // Filter ignored keys
-        $hashData = Arr::filterKeys($this->data, $this->ignoreKeys, true);
-
-        // Get hash
-        $hash = md5(serialize($hashData));
-
-        return $hash;
-    }
-
-    /**
-     * Update quantity without messing with read-only
-     *
-     * @param int   $quantity
-     * @return Item
+     * {@inheritdocs}
      */
     public function changeQuantity($quantity)
     {
@@ -83,45 +69,25 @@ class Item extends Struct
     }
 
     /**
-     * Get price
-     *
-     * @param  boolean $tax Get taxed price
-     * @return float
+     * {@inheritdocs}
      */
-    public function getPrice($tax = false)
+    public function getPrice($option = false)
     {
         $price = $this->price;
 
-        if ($tax) {
-            $price += $this->getTax();
+        if ($option and isset($this->data['option'])) {
+            $price += $this->option->getValue($price);
         }
 
         return $price;
     }
 
     /**
-     * Get tax
-     *
-     * @return float
+     * {@inheritdocs}
      */
-    public function getTax()
+    public function getSubtotal($option = false)
     {
-        if (is_float($this->tax)) {
-            return $this->tax;
-        }
-
-        return $this->price * $this->tax / 100;
-    }
-
-    /**
-     * Get subtotal
-     *
-     * @param  boolean $tax Get taxed subtotal
-     * @return float
-     */
-    public function getSubtotal($tax = false)
-    {
-        $price = $this->getPrice($tax);
+        $price = $this->getPrice($option);
 
         return $price * $this->quantity;
     }

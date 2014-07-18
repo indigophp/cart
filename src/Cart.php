@@ -11,7 +11,6 @@
 
 namespace Indigo\Cart;
 
-use Indigo\Cart\Store\StoreInterface;
 use Indigo\Container\Collection;
 use Fuel\Validation\Rule\Type;
 use Fuel\Common\Arr;
@@ -21,43 +20,41 @@ use Fuel\Common\Arr;
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class Cart extends Collection
+class Cart extends Collection implements CartInterface
 {
-    /**
-     * Cart ID
-     *
-     * @var string
-     */
-    protected $id;
+    use \Indigo\Container\Helper\Id;
+    use \Indigo\Container\Helper\Reset;
 
+    /**
+     * Creates a new Cart
+     *
+     * @param mixed $id
+     */
     public function __construct($id = null)
     {
-        if (empty($id)) {
-            $id = uniqid('__CART__', true);
-        }
-
         $this->id = $id;
 
-        parent::__construct(new Type('Indigo\\Cart\\Item'));
+        parent::__construct(new Type('Indigo\\Cart\\ItemInterface'));
     }
 
     /**
-     * Get Cart ID
+     * {@inheritdocs}
      *
-     * @return string
+     * Cart id must be unique, so the same items should NOT mean the same cart
      */
     public function getId()
     {
+        if (isset($this->id) === false) {
+            $this->id = uniqid('__CART__');
+        }
+
         return $this->id;
     }
 
     /**
-     * Add item to Cart
-     *
-     * @param Item $item
-     * @return Cart
+     * {@inheritdocs}
      */
-    public function add(Item $item)
+    public function add(ItemInterface $item)
     {
         $id = $item->getId();
 
@@ -79,42 +76,21 @@ class Cart extends Collection
     }
 
     /**
-     * Get total
-     *
-     * @param  boolean $tax Get taxed price
-     * @return float
+     * {@inheritdocs}
      */
-    public function getTotal($tax = false)
+    public function getTotal($options = false)
     {
         $total = 0;
 
         foreach ($this->data as $id => $item) {
-            $total += $item->getSubtotal($tax);
+            $total += $item->getSubtotal($options);
         }
 
         return $total;
     }
 
     /**
-     * Get total tax
-     *
-     * @return float
-     */
-    public function getTax()
-    {
-        $tax = 0;
-
-        foreach ($this->data as $id => $item) {
-            $tax += $item->getTax() * $item->quantity;
-        }
-
-        return $tax;
-    }
-
-    /**
-     * Get total quantity
-     *
-     * @return int
+     * {@inheritdocs}
      */
     public function getQuantity()
     {

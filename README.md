@@ -1,5 +1,13 @@
 # Indigo Cart
 
+[![Build Status](https://travis-ci.org/indigophp/cart.svg?branch=develop)](https://travis-ci.org/indigophp/cart)
+[![Code Coverage](https://scrutinizer-ci.com/g/indigophp/cart/badges/coverage.png?s=08dc6c57aba0eb1fe81802736abc1d28e3730395)](https://scrutinizer-ci.com/g/indigophp/cart/)
+[![Latest Stable Version](https://poser.pugx.org/indigophp/cart/v/stable.png)](https://packagist.org/packages/indigophp/cart)
+[![Total Downloads](https://poser.pugx.org/indigophp/cart/downloads.png)](https://packagist.org/packages/indigophp/cart)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/indigophp/cart/badges/quality-score.png?s=8db49a4f6804240a1add0ac9400b621c1735a656)](https://scrutinizer-ci.com/g/indigophp/cart/)
+[![License](https://poser.pugx.org/indigophp/cart/license.png)](https://packagist.org/packages/indigophp/cart)
+[![Dependency Status](https://www.versioneye.com/user/projects/53c95da0c2756785da000026/badge.svg?style=flat)](https://www.versioneye.com/user/projects/53c95da0c2756785da000026)
+
 **Indigo Cart manages shopping cart and takes care of the related tasks.**
 
 
@@ -25,6 +33,7 @@ Instantiate cart and fill it with items:
 ``` php
 use Indigo\Cart\Cart;
 use Indigo\Cart\Item;
+use Indigo\Cart\Option\Tax;
 use Indigo\Cart\Store\SessionStore;
 
 $cart = new Cart('cart_id');
@@ -36,29 +45,28 @@ $cart->add(
             'name'     => 'Some Product',
             'price'    => 1.000,
             'quantity' => 1,
-            'tax'      => 27,
+            'option'   => new Tax(array(
+                'id'    => 1,
+                'name'  => 'VAT',
+                'value' => 10,
+                'mode'  => Tax::PERCENT,
+            )),
         )
     )
 );
 
-// Get taxed price
+// Get price with option(s)
 $cart->getTotal(true);
-
-// Get total tax
-$cart->getTax();
 
 // Get item count (item * quantity)
 $cart->getQuantity();
 
 foreach($cart as $id => $item) {
-    // Get taxed subtotal
+    // Get subtotal with option(s)
     $item->getSubtotal(true);
 
-    // Get tax amount of ONE item
-    $item->getTax();
-
-    // Get taxed price
-    $item->getPrice();
+    // Get price with option(s)
+    $item->getPrice(true);
 }
 
 $store = new SessionStore;
@@ -77,11 +85,16 @@ $store = new SessionStore;
 $store->load($cart);
 ```
 
+Currently available `Option`s:
+* `Option`: General option with a simple value.
+* `Tax`: Tax value with two modes: absolute (simple value) and percent (calculated from price).
+* `Collection`: Collection of Options.
+
 
 ## Testing
 
 ``` bash
-$ phpunit
+$ codecept run
 ```
 
 
