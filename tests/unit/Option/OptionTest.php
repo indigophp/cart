@@ -15,11 +15,11 @@ class OptionTest extends AbstractOptionTest
 {
     public function _before()
     {
-        $this->option = new Option(array(
+        $this->option = new Option([
             'id'    => 1,
             'name'  => 'Test option',
             'value' => 1.0
-        ));
+        ]);
     }
 
     /**

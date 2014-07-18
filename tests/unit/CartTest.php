@@ -24,23 +24,34 @@ class CartTest extends Test
         $this->cart = new Cart('cart_01');
 
         $this->item = new Item(
-            array(
+            [
                 'id'       => 1,
                 'name'     => 'Some Product',
                 'price'    => 1.000,
                 'quantity' => 1,
-                'option'  => new Collection(array(
-                    new Tax(array(
+                'option'  => new Collection([
+                    new Tax([
                         'id'    => 1,
                         'name'  => 'VAT',
                         'value' => 27,
                         'mode'  => Tax::PERCENT,
-                    )),
-                )),
-            )
+                    ]),
+                ]),
+            ]
         );
 
         $this->cart->add($this->item);
+    }
+
+    /**
+     * @covers ::__construct
+     * @group  Cart
+     */
+    public function testConstruct()
+    {
+        $cart = new Cart('cart_01');
+
+        $this->assertEquals('cart_01', $cart->getId());
     }
 
     /**
@@ -54,6 +65,10 @@ class CartTest extends Test
         $this->cart->setId();
 
         $this->assertNotEquals('cart_01', $this->cart->getId());
+
+        $this->cart->setId('cart_01');
+
+        $this->assertEquals('cart_01', $this->cart->getId());
     }
 
     /**
@@ -62,14 +77,12 @@ class CartTest extends Test
      */
     public function testNewAdd()
     {
-        $item = new Item(
-            array(
-                'id'       => 2,
-                'name'     => 'Some Other Product',
-                'price'    => 2.000,
-                'quantity' => 1,
-            )
-        );
+        $item = new Item([
+            'id'       => 2,
+            'name'     => 'Some Other Product',
+            'price'    => 2.000,
+            'quantity' => 1,
+        ]);
 
         $id = $item->getId();
 

@@ -15,12 +15,12 @@ class TaxTest extends AbstractOptionTest
 {
     public function _before()
     {
-        $this->option = new Tax(array(
+        $this->option = new Tax([
             'id'    => 1,
             'name'  => 'Test option',
             'value' => 1.0,
             'mode'  => Tax::ABSOLUTE,
-        ));
+        ]);
     }
 
     /**

@@ -36,7 +36,16 @@ class ItemTest extends Test
     }
 
     /**
-     * @covers ::getID
+     * @covers ::__construct
+     * @group  Cart
+     */
+    public function testConstruct()
+    {
+        $item = new Item($this->item->getContents());
+    }
+
+    /**
+     * @covers ::getId
      * @group  Cart
      */
     public function testId()

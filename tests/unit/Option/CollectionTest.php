@@ -21,13 +21,24 @@ class CollectionTest extends AbstractOptionTest
     {
         $this->option = new Collection;
 
-        $this->mock = new Option(array(
+        $this->mock = new Option([
             'id'    => 1,
             'name'  => 'Test Option',
             'value' => 2.00
-        ));
+        ]);
 
         $this->option->add($this->mock);
+    }
+
+    /**
+     * @covers ::__construct
+     * @group  Cart
+     */
+    public function testConstruct()
+    {
+        $option = new Collection([
+            new Option(['name' => 'test']),
+        ]);
     }
 
     /**
@@ -38,7 +49,7 @@ class CollectionTest extends AbstractOptionTest
     {
         $option = $this->mock;
 
-        $this->option->setContents(array());
+        $this->option->setContents([]);
         $id = $option->getId();
 
         $this->assertFalse($this->option->has($id));
