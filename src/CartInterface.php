@@ -21,37 +21,39 @@ use Indigo\Cart\ItemInterface;
 interface CartInterface
 {
     /**
-     * Get Cart ID
+     * Returns the Cart ID
      *
      * @return string
      */
     public function getId();
 
     /**
-     * Add item to Cart
+     * Adds an item to Cart
      *
-     * @param  ItemInterface $item
-     * @return CartInterface
+     * @param ItemInterface $item
+     *
+     * @return this
      */
     public function add(ItemInterface $item);
 
     /**
-     * Get total
+     * Returns total
      *
-     * @param  boolean $option Get total with option(s)
-     * @return float
+     * @param boolean $option Get total with option(s)
+     *
+     * @return mixed
      */
     public function getTotal($option = false);
 
     /**
-     * Get total quantity
+     * Returns total quantity
      *
-     * @return int
+     * @return integer
      */
     public function getQuantity();
 
     /**
-     * Reset the Cart
+     * Resets the Cart
      *
      * @return boolean
      */

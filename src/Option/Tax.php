@@ -29,21 +29,21 @@ class Tax extends Struct implements OptionInterface, TaxInterface, Serializable
     /**
      * {@inheritdocs}
      */
-    protected $struct = array(
-        'id' => array(
-            'type' => array('integer', 'string')
-        ),
-        'name' => array(
+    protected $struct = [
+        'id' => [
+            'type' => ['integer', 'string'],
+        ],
+        'name' => [
             'required',
             'type' => 'string',
-        ),
-        'value' => array(
-            'type' => array('float', 'int')
-        ),
-        'mode'  => array(
-            'value' => array(TaxInterface::ABSOLUTE, TaxInterface::PERCENT)
-        ),
-    );
+        ],
+        'value' => [
+            'type' => ['float', 'int'],
+        ],
+        'mode'  => [
+            'value' => [TaxInterface::ABSOLUTE, TaxInterface::PERCENT],
+        ],
+    ];
 
     /**
      * {@inheritdocs}

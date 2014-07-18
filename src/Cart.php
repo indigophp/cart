@@ -26,7 +26,9 @@ class Cart extends Collection implements CartInterface
     use \Indigo\Container\Helper\Reset;
 
     /**
-     * @codeCoverageIgnore
+     * Creates a new Cart
+     *
+     * @param mixed $id
      */
     public function __construct($id = null)
     {

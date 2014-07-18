@@ -23,13 +23,18 @@ class SessionStore implements StoreInterface
 {
     protected $sessionKey;
 
+    /**
+     * Creates a new SessionStore
+     *
+     * @param string $sessionKey
+     */
     public function __construct($sessionKey = 'cart')
     {
         $this->sessionKey = $sessionKey;
     }
 
     /**
-     * Return session key
+     * Returns the session key
      *
      * @return string
      */

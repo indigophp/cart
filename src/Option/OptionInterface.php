@@ -19,17 +19,18 @@ namespace Indigo\Cart\Option;
 interface OptionInterface
 {
     /**
-     * Return a unique identifier for the Option
+     * Returns a unique identifier for the Option
      *
      * @return string
      */
     public function getId();
 
     /**
-     * Return the value of the option
+     * Returns the value of the option
      *
-     * @param  float $price Price the calculation depends on
-     * @return float
+     * @param mixed $price Price the calculation depends on
+     *
+     * @return mixed
      */
     public function getValue($price);
 }

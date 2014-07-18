@@ -28,35 +28,35 @@ class Item extends Struct implements ItemInterface, Serializable
     /**
      * {@inheritdocs}
      */
-    protected $struct = array(
-        'id' => array(
+    protected $struct = [
+        'id' => [
             'required',
-            'type' => array('integer', 'string'),
-        ),
-        'name' => array(
+            'type' => ['integer', 'string'],
+        ],
+        'name' => [
             'required',
             'type' => 'string',
-        ),
-        'price' => array(
+        ],
+        'price' => [
             'required',
             'type' => 'float',
-        ),
-        'quantity' => array(
+        ],
+        'quantity' => [
             'required',
             'type'       => 'integer',
             'numericMin' => 1,
-        ),
-        'option' => array(
+        ],
+        'option' => [
             'type' => 'Indigo\\Cart\\Option\\OptionInterface'
-        ),
-    );
+        ],
+    ];
 
     /**
      * Keys to ignore in the hashing process
      *
-     * @var array
+     * @var []
      */
-    protected $ignoreKeys = array('quantity');
+    protected $ignoreKeys = ['quantity'];
 
     /**
      * {@inheritdocs}

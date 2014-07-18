@@ -19,33 +19,36 @@ namespace Indigo\Cart;
 interface ItemInterface
 {
     /**
-     * Get ID
+     * Returns the ID
      *
      * @return string
      */
     public function getId();
 
     /**
-     * Update quantity without messing with read-only
+     * Updates quantity without messing with read-only
      *
-     * @param  int           $quantity
-     * @return ItemInterface
+     * @param integer $quantity
+     *
+     * @return this
      */
     public function changeQuantity($quantity);
 
     /**
-     * Get price
+     * Returns the price
      *
-     * @param  boolean $option Include option(s) in price
-     * @return float
+     * @param boolean $option Include option(s) in price
+     *
+     * @return mixed
      */
     public function getPrice($option = false);
 
     /**
-     * Get subtotal
+     * Returns subtotal
      *
-     * @param  boolean $option Include option(s) in subtotal
-     * @return float
+     * @param boolean $option Include option(s) in subtotal
+     *
+     * @return mixed
      */
     public function getSubtotal($option = false);
 }
