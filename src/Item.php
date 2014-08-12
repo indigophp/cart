@@ -16,7 +16,7 @@ use Fuel\Validation\Rule\Type;
 use Serializable;
 
 /**
- * Item class
+ * Item
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */

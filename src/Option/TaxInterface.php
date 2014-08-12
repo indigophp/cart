@@ -23,6 +23,6 @@ interface TaxInterface
     /**
      * Tax calculating mode
      */
-    const ABSOLUTE = 1;
+    const FIXED = 1;
     const PERCENT  = 2;
 }

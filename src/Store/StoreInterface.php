@@ -14,7 +14,7 @@ namespace Indigo\Cart\Store;
 use Indigo\Cart\Cart;
 
 /**
- * StoreInterface
+ * Store Interface
  *
  * Interface for stores (like session, database, etc)
  *

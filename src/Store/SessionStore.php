@@ -15,7 +15,7 @@ use Indigo\Cart\Cart;
 use Fuel\Common\Arr;
 
 /**
- * Session store
+ * Session Store
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */

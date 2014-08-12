@@ -16,7 +16,7 @@ use Fuel\Validation\Rule\Type;
 use Serializable;
 
 /**
- * Option collection class
+ * Collection Option
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
@@ -42,11 +42,12 @@ class Collection extends CollectionContainer implements OptionInterface, Seriali
     }
 
     /**
-     * Add option to collection
+     * Adds option to collection
      *
-     * @param  OptionInterface $option
-     * @param  integer|null    $pos
-     * @return Collection
+     * @param OptionInterface $option
+     * @param integer|null    $pos
+     *
+     * @return this
      */
     public function add(OptionInterface $option, $pos = null)
     {

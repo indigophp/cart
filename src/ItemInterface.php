@@ -12,7 +12,7 @@
 namespace Indigo\Cart;
 
 /**
- * Item interface
+ * Item Interface
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */

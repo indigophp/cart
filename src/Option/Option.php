@@ -15,7 +15,7 @@ use Indigo\Container\Struct;
 use Serializable;
 
 /**
- * Cart item option class
+ * Option
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */

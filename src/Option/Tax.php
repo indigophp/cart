@@ -15,7 +15,7 @@ use Indigo\Container\Struct;
 use Serializable;
 
 /**
- * Tax option class
+ * Tax Option
  *
  * Calculate tax based on price
  *
@@ -41,7 +41,7 @@ class Tax extends Struct implements OptionInterface, TaxInterface, Serializable
             'type' => ['float', 'int'],
         ],
         'mode'  => [
-            'value' => [TaxInterface::ABSOLUTE, TaxInterface::PERCENT],
+            'value' => [TaxInterface::FIXED, TaxInterface::PERCENT],
         ],
     ];
 
@@ -50,7 +50,7 @@ class Tax extends Struct implements OptionInterface, TaxInterface, Serializable
      */
     public function getValue($price)
     {
-        if ($this->get('mode', static::ABSOLUTE) === static::ABSOLUTE) {
+        if ($this->get('mode', static::FIXED) === static::FIXED) {
             return $this->value;
         }
 

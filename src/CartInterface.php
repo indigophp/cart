@@ -14,7 +14,7 @@ namespace Indigo\Cart;
 use Indigo\Cart\ItemInterface;
 
 /**
- * Cart interface
+ * Cart Interface
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */

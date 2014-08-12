@@ -16,7 +16,7 @@ use Fuel\Validation\Rule\Type;
 use Fuel\Common\Arr;
 
 /**
- * Cart class
+ * Cart
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
@@ -44,7 +44,7 @@ class Cart extends Collection implements CartInterface
      */
     public function getId()
     {
-        if (isset($this->id) === false) {
+        if ($this->id === null) {
             $this->id = uniqid('__CART__');
         }
 
