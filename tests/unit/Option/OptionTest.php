@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Indigo Cart package.
+ *
+ * (c) Indigo Development Team
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Indigo\Cart\Test\Option;
 
 use Indigo\Cart\Option\Option;
@@ -10,6 +19,8 @@ use Indigo\Cart\Option\Option;
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  *
  * @coversDefaultClass Indigo\Cart\Option\Option
+ * @group              Cart
+ * @group              Option
  */
 class OptionTest extends AbstractOptionTest
 {
@@ -24,7 +35,6 @@ class OptionTest extends AbstractOptionTest
 
     /**
      * @covers ::getValue
-     * @group  Cart
      */
     public function testGetValue()
     {

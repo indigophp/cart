@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Indigo Cart package.
+ *
+ * (c) Indigo Development Team
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Indigo\Cart;
 
 use Indigo\Cart\Option\Collection;
@@ -12,11 +21,22 @@ use Codeception\TestCase\Test;
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  *
  * @coversDefaultClass Indigo\Cart\Cart
+ * @group              Cart
  */
 class CartTest extends Test
 {
+    /**
+     * Cart object
+     *
+     * @var Cart
+     */
     protected $cart;
 
+    /**
+     * Item object
+     *
+     * @var Item
+     */
     protected $item;
 
     protected function _before()
@@ -45,7 +65,6 @@ class CartTest extends Test
 
     /**
      * @covers ::__construct
-     * @group  Cart
      */
     public function testConstruct()
     {
@@ -56,7 +75,6 @@ class CartTest extends Test
 
     /**
      * @covers ::getId
-     * @group  Cart
      */
     public function testId()
     {
@@ -73,7 +91,6 @@ class CartTest extends Test
 
     /**
      * @covers ::add
-     * @group  Cart
      */
     public function testNewAdd()
     {
@@ -97,7 +114,6 @@ class CartTest extends Test
 
     /**
      * @covers ::add
-     * @group  Cart
      */
     public function testAdd()
     {
@@ -114,7 +130,6 @@ class CartTest extends Test
 
     /**
      * @covers ::getTotal
-     * @group  Cart
      */
     public function testTotal()
     {
@@ -124,7 +139,6 @@ class CartTest extends Test
 
     /**
      * @covers ::getQuantity
-     * @group  Cart
      */
     public function testQuantity()
     {

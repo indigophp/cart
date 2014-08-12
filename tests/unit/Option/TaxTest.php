@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Indigo Cart package.
+ *
+ * (c) Indigo Development Team
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Indigo\Cart\Test\Option;
 
 use Indigo\Cart\Option\Tax;
@@ -10,6 +19,8 @@ use Indigo\Cart\Option\Tax;
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  *
  * @coversDefaultClass Indigo\Cart\Option\Tax
+ * @group              Cart
+ * @group              Option
  */
 class TaxTest extends AbstractOptionTest
 {
@@ -19,21 +30,12 @@ class TaxTest extends AbstractOptionTest
             'id'    => 1,
             'name'  => 'Test option',
             'value' => 1.0,
-            'mode'  => Tax::ABSOLUTE,
+            'mode'  => Tax::FIXED,
         ]);
     }
 
     /**
-     * @group  Cart
-     */
-    public function testInstance()
-    {
-        $this->assertInstanceOf('Indigo\\Cart\\Option\\TaxInterface', $this->option);
-    }
-
-    /**
      * @covers ::getValue
-     * @group  Cart
      */
     public function testGetValue()
     {

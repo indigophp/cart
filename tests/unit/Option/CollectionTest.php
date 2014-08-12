@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Indigo Cart package.
+ *
+ * (c) Indigo Development Team
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Indigo\Cart\Test\Option;
 
 use Indigo\Cart\Option\Collection;
@@ -12,9 +21,16 @@ use Fuel\Validation\Rule\Type;
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  *
  * @coversDefaultClass Indigo\Cart\Option\Collection
+ * @group              Cart
+ * @group              Option
  */
 class CollectionTest extends AbstractOptionTest
 {
+    /**
+     * Option object
+     *
+     * @var Option
+     */
     protected $mock;
 
     protected function _before()
@@ -32,7 +48,6 @@ class CollectionTest extends AbstractOptionTest
 
     /**
      * @covers ::__construct
-     * @group  Cart
      */
     public function testConstruct()
     {
@@ -43,7 +58,6 @@ class CollectionTest extends AbstractOptionTest
 
     /**
      * @covers ::add
-     * @group  Cart
      */
     public function testAdd()
     {
@@ -61,7 +75,6 @@ class CollectionTest extends AbstractOptionTest
 
     /**
      * @covers ::getValue
-     * @group  Cart
      */
     public function testValue()
     {
@@ -70,7 +83,6 @@ class CollectionTest extends AbstractOptionTest
 
     /**
      * @covers ::getValueOfType
-     * @group  Cart
      */
     public function testValueOfType()
     {
