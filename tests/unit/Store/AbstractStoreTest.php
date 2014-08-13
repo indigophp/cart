@@ -21,13 +21,35 @@ use Codeception\TestCase\Test;
  */
 abstract class AbstractStoreTest extends Test
 {
+    /**
+     * Store object
+     *
+     * @var StoreInterface
+     */
     protected $store;
 
+    /**
+     * Cart object
+     *
+     * @var CartInterface
+     */
     protected $cart;
 
     protected function _before()
     {
-        $this->cart = new Cart;
+        $this->cart = \Mockery::mock('Indigo\\Cart\\CartInterface');
+
+        $this->cart->shouldReceive('getContents')
+            ->andReturn([])
+            ->byDefault();
+
+        $this->cart->shouldReceive('setContents')
+            ->andReturn([])
+            ->byDefault();
+
+        $this->cart->shouldReceive('getId')
+            ->andReturn('cart')
+            ->byDefault();
 
         $this->store->save($this->cart);
     }
