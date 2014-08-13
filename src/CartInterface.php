@@ -58,4 +58,20 @@ interface CartInterface
      * @return boolean
      */
     public function reset();
+
+    /**
+     * Returns the cart data
+     *
+     * @return []
+     */
+    public function getContents();
+
+    /**
+     * Sets the cart data
+     *
+     * @param [] $data
+     *
+     * @return this
+     */
+    public function setContents(array $data);
 }
