@@ -11,7 +11,7 @@
 
 namespace Indigo\Cart\Store;
 
-use Indigo\Cart\Cart;
+use Indigo\Cart\CartInterface;
 use Fuel\Common\Arr;
 
 /**
@@ -51,7 +51,7 @@ class SessionStore implements StoreInterface
     /**
      * {@inheritdoc}
      */
-    public function load(Cart $cart)
+    public function load(CartInterface $cart)
     {
         $data = Arr::get($_SESSION, $this->sessionKey . '.' . $cart->getId(), array());
         $cart->setContents($data);
@@ -62,7 +62,7 @@ class SessionStore implements StoreInterface
     /**
      * {@inheritdoc}
      */
-    public function save(Cart $cart)
+    public function save(CartInterface $cart)
     {
         $data = $cart->getContents();
         Arr::set($_SESSION, $this->sessionKey . '.' . $cart->getId(), $data);
@@ -73,7 +73,7 @@ class SessionStore implements StoreInterface
     /**
      * {@inheritdoc}
      */
-    public function delete(Cart $cart)
+    public function delete(CartInterface $cart)
     {
         return Arr::delete($_SESSION, $this->sessionKey . '.' . $cart->getId());
     }

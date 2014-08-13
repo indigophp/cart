@@ -11,7 +11,7 @@
 
 namespace Indigo\Cart\Store;
 
-use Indigo\Cart\Cart;
+use Indigo\Cart\CartInterface;
 
 /**
  * Store Interface
@@ -25,27 +25,27 @@ interface StoreInterface
     /**
      * Loads data from store
      *
-     * @param Cart $cart
+     * @param CartInterface $cart
      *
      * @return boolean
      */
-    public function load(Cart $cart);
+    public function load(CartInterface $cart);
 
     /**
      * Saves data to store
      *
-     * @param Cart $cart
+     * @param CartInterface $cart
      *
      * @return boolean
      */
-    public function save(Cart $cart);
+    public function save(CartInterface $cart);
 
     /**
      * Deletes the cart from the store
      *
-     * @param Cart $cart
+     * @param CartInterface $cart
      *
      * @return boolean
      */
-    public function delete(Cart $cart);
+    public function delete(CartInterface $cart);
 }
