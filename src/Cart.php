@@ -11,89 +11,65 @@
 
 namespace Indigo\Cart;
 
-use Indigo\Container\Collection;
-use Fuel\Validation\Rule\Type;
-use Fuel\Common\Arr;
+use Indigo\Cart\Item;
 
 /**
- * Cart
+ * Interface for Cart implementations
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class Cart extends Collection implements CartInterface
+interface Cart
 {
-    use \Indigo\Container\Helper\Id;
-    use \Indigo\Container\Helper\Reset;
-
     /**
-     * Creates a new Cart
+     * Returns the Cart ID
      *
-     * @param mixed $id
+     * @return string
      */
-    public function __construct($id = null)
-    {
-        $this->id = $id;
-
-        parent::__construct(new Type('Indigo\\Cart\\ItemInterface'));
-    }
+    public function getId();
 
     /**
-     * {@inheritdoc}
+     * Adds an item to Cart
      *
-     * Cart id must be unique, so the same items should NOT mean the same cart
+     * @param Item $item
+     *
+     * @return this
      */
-    public function getId()
-    {
-        if ($this->id === null) {
-            $this->id = uniqid('__CART__');
-        }
-
-        return $this->id;
-    }
+    public function add(Item $item);
 
     /**
-     * {@inheritdoc}
+     * Returns total
+     *
+     * @return mixed
      */
-    public function add(ItemInterface $item)
-    {
-        $id = $item->getId();
-
-        if ($this->has($id)) {
-            $currentItem = $this->get($id);
-            $currentItem->changeQuantity($item->quantity);
-        } else {
-            // Set parent, but disable the usage
-            // Set item to read-only
-            $item
-                ->setParent($this)
-                ->disableParent()
-                ->setReadOnly();
-
-            $this->set($id, $item);
-        }
-
-        return $this;
-    }
+    public function getTotal();
 
     /**
-     * {@inheritdoc}
+     * Returns total quantity
+     *
+     * @return integer
      */
-    public function getTotal($options = false)
-    {
-        $total = 0;
-
-        foreach ($this->data as $id => $item) {
-            $total += $item->getSubtotal($options);
-        }
-
-        return $total;
-    }
+    public function getQuantity();
 
     /**
-     * {@inheritdoc}
+     * Resets the Cart
+     *
+     * @return boolean
      */
-    public function getQuantity()
-    {
-        return Arr::sum($this->data, 'quantity');
-    }
+    public function reset();
+
+    /**
+     * Returns the cart items
+     *
+     * @return []
+     */
+    public function getItems();
+
+    /**
+     * Sets the cart data
+     *
+     * @param [] $data
+     *
+     * @return this
+     */
+    public function setItems(array $data);
 }
