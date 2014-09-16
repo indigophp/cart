@@ -46,6 +46,8 @@ interface Item
      *
      * Handles negative integers as well
      *
+     * Should result in a positive quantity
+     *
      * @param integer $quantity
      *
      * @return self
@@ -71,7 +73,7 @@ interface Item
     public function getPrice();
 
     /**
-     * Returns subtotal
+     * Returns the subtotal
      *
      * @return mixed
      */

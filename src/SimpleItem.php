@@ -37,32 +37,37 @@ class SimpleItem implements Item
     /**
      * Based on the implementation using this price can be an integer or float
      *
-     * @var numeric
+     * @var integer|float
      */
     private $price;
 
+    /**
+     * @param string       $name
+     * @param intger|float $price
+     * @param integer      $quantity
+     * @param mixed        $id
+     */
     public function __construct($name, $price, $quantity, $id = null)
     {
         $this->assertPriceNumeric($price);
-        $this->assertQuantityNonZeroInteger($quantity);
+        $this->setQuantity($quantity);
 
         $this->name = $name;
         $this->price = $price;
-        $this->quantity = $quantity;
         $this->id = $id;
     }
 
     /**
-     * Asserts that given price is numeric
+     * Asserts that given price is integer|float
      *
-     * @param integer $price
+     * @param integer|float $price
      *
      * @throws InvalidArgumentException If $price is not numeric
      */
     private function assertPriceNumeric($price)
     {
-        if (!is_numeric($price)) {
-            throw new InvalidArgumentException('Price must be a numeric value');
+        if (!is_integer($price) and !is_float($price)) {
+            throw new InvalidArgumentException('Price must be an integer|float value');
         }
     }
 
