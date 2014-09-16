@@ -21,23 +21,52 @@ use Indigo\Cart\Item;
 interface Cart
 {
     /**
-     * Returns the Cart ID
+     * Returns the cart ID
      *
      * @return string
      */
     public function getId();
 
     /**
-     * Adds an item to Cart
+     * Returns an item by id
+     *
+     * @param mixed $id
+     *
+     * @return Item
+     */
+    public function getItem($id);
+
+    /**
+     * Checks whether an item is already in cart
+     *
+     * @param mixed $id
+     *
+     * @return boolean
+     */
+    public function hasItem($id);
+
+    /**
+     * Adds an item to the cart
      *
      * @param Item $item
      *
      * @return this
      */
-    public function add(Item $item);
+    public function addItem(Item $item);
 
     /**
-     * Returns total
+     * Removes an item from cart (by ID or by object)
+     *
+     * @param mixed $item
+     *
+     * @return boolean
+     */
+    public function removeItem($item);
+
+    /**
+     * Returns total value of items (without any formatting)
+     *
+     * The format/type of value is/can be preserved
      *
      * @return mixed
      */
@@ -65,11 +94,13 @@ interface Cart
     public function getItems();
 
     /**
-     * Sets the cart data
+     * Sets the cart items
      *
-     * @param [] $data
+     * NOTE: Use with caution! This is the only point where no type check is done
+     *
+     * @param [] $items
      *
      * @return this
      */
-    public function setItems(array $data);
+    public function setItems(array $items);
 }
