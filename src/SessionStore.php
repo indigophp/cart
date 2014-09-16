@@ -9,17 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Indigo\Cart\Store;
-
-use Indigo\Cart\CartInterface;
-use Fuel\Common\Arr;
+namespace Indigo\Cart;
 
 /**
  * Session Store
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class SessionStore implements StoreInterface
+class SessionStore implements Store
 {
     /**
      * Session key used for store
@@ -36,6 +33,10 @@ class SessionStore implements StoreInterface
     public function __construct($sessionKey = 'cart')
     {
         $this->sessionKey = $sessionKey;
+
+        if (!isset($_SESSION[$sessionKey])) {
+            $_SESSION[$sessionKey] = [];
+        }
     }
 
     /**
@@ -51,10 +52,27 @@ class SessionStore implements StoreInterface
     /**
      * {@inheritdoc}
      */
-    public function load(CartInterface $cart)
+    public function load(Cart $cart)
     {
-        $data = Arr::get($_SESSION, $this->sessionKey . '.' . $cart->getId(), array());
-        $cart->setContents($data);
+        $id = $cart->getId();
+
+        if (array_key_exists($id, $_SESSION[$this->sessionKey])) {
+            $cart->setItems($_SESSION[$this->sessionKey][$id]);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function save(Cart $cart)
+    {
+        $id = $cart->getId();
+
+        $_SESSION[$this->sessionKey][$id] = $cart->getItems();
 
         return true;
     }
@@ -62,19 +80,12 @@ class SessionStore implements StoreInterface
     /**
      * {@inheritdoc}
      */
-    public function save(CartInterface $cart)
+    public function delete(Cart $cart)
     {
-        $data = $cart->getContents();
-        Arr::set($_SESSION, $this->sessionKey . '.' . $cart->getId(), $data);
+        $id = $cart->getId();
+
+        unset($_SESSION[$this->sessionKey][$id]);
 
         return true;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function delete(CartInterface $cart)
-    {
-        return Arr::delete($_SESSION, $this->sessionKey . '.' . $cart->getId());
     }
 }

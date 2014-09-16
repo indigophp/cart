@@ -9,41 +9,48 @@
  * file that was distributed with this source code.
  */
 
-namespace Indigo\Cart\Store;
+namespace Indigo\Cart;
 
-use Indigo\Cart\Cart;
 use Codeception\TestCase\Test;
 
+session_start();
+
 /**
- * Tests for Stores
+ * Tests for Session Store
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
+ *
+ * @coversDefaultClass Indigo\Cart\SessionStore
+ * @group              Cart
+ * @group              Store
  */
-abstract class AbstractStoreTest extends Test
+class SessionStoreTest extends Test
 {
     /**
      * Store object
      *
-     * @var StoreInterface
+     * @var Store
      */
     protected $store;
 
     /**
      * Cart object
      *
-     * @var CartInterface
+     * @var Cart
      */
     protected $cart;
 
-    protected function _before()
+    public function _before()
     {
-        $this->cart = \Mockery::mock('Indigo\\Cart\\CartInterface');
+        $this->store = new SessionStore;
 
-        $this->cart->shouldReceive('getContents')
+        $this->cart = \Mockery::mock('Indigo\\Cart\\Cart');
+
+        $this->cart->shouldReceive('getItems')
             ->andReturn([])
             ->byDefault();
 
-        $this->cart->shouldReceive('setContents')
+        $this->cart->shouldReceive('setItems')
             ->andReturn([])
             ->byDefault();
 
@@ -52,6 +59,19 @@ abstract class AbstractStoreTest extends Test
             ->byDefault();
 
         $this->store->save($this->cart);
+    }
+
+    /**
+     * @covers ::__construct
+     * @covers ::getSessionKey
+     * @covers ::load
+     */
+    public function testSessionKey()
+    {
+        $store = new SessionStore('cart_key');
+
+        $this->assertEquals('cart_key', $store->getSessionKey());
+        $this->assertFalse($store->load($this->cart));
     }
 
     /**

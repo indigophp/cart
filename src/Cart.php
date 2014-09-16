@@ -11,89 +11,96 @@
 
 namespace Indigo\Cart;
 
-use Indigo\Container\Collection;
-use Fuel\Validation\Rule\Type;
-use Fuel\Common\Arr;
+use Indigo\Cart\Item;
 
 /**
- * Cart
+ * Interface for Cart implementations
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class Cart extends Collection implements CartInterface
+interface Cart
 {
-    use \Indigo\Container\Helper\Id;
-    use \Indigo\Container\Helper\Reset;
+    /**
+     * Returns the cart ID
+     *
+     * @return string
+     */
+    public function getId();
 
     /**
-     * Creates a new Cart
+     * Returns an item by id
      *
      * @param mixed $id
-     */
-    public function __construct($id = null)
-    {
-        $this->id = $id;
-
-        parent::__construct(new Type('Indigo\\Cart\\ItemInterface'));
-    }
-
-    /**
-     * {@inheritdoc}
      *
-     * Cart id must be unique, so the same items should NOT mean the same cart
+     * @return Item
      */
-    public function getId()
-    {
-        if ($this->id === null) {
-            $this->id = uniqid('__CART__');
-        }
-
-        return $this->id;
-    }
+    public function getItem($id);
 
     /**
-     * {@inheritdoc}
+     * Checks whether an item is already in cart
+     *
+     * @param mixed $id
+     *
+     * @return boolean
      */
-    public function add(ItemInterface $item)
-    {
-        $id = $item->getId();
-
-        if ($this->has($id)) {
-            $currentItem = $this->get($id);
-            $currentItem->changeQuantity($item->quantity);
-        } else {
-            // Set parent, but disable the usage
-            // Set item to read-only
-            $item
-                ->setParent($this)
-                ->disableParent()
-                ->setReadOnly();
-
-            $this->set($id, $item);
-        }
-
-        return $this;
-    }
+    public function hasItem($id);
 
     /**
-     * {@inheritdoc}
+     * Adds an item to the cart
+     *
+     * @param Item $item
+     *
+     * @return this
      */
-    public function getTotal($options = false)
-    {
-        $total = 0;
-
-        foreach ($this->data as $id => $item) {
-            $total += $item->getSubtotal($options);
-        }
-
-        return $total;
-    }
+    public function addItem(Item $item);
 
     /**
-     * {@inheritdoc}
+     * Removes an item from cart (by ID or by object)
+     *
+     * @param mixed $item
+     *
+     * @return boolean
      */
-    public function getQuantity()
-    {
-        return Arr::sum($this->data, 'quantity');
-    }
+    public function removeItem($item);
+
+    /**
+     * Returns total value of items (without any formatting)
+     *
+     * The format/type of value is/can be preserved
+     *
+     * @return mixed
+     */
+    public function getTotal();
+
+    /**
+     * Returns total quantity
+     *
+     * @return integer
+     */
+    public function getQuantity();
+
+    /**
+     * Resets the Cart
+     *
+     * @return boolean
+     */
+    public function reset();
+
+    /**
+     * Returns the cart items
+     *
+     * @return []
+     */
+    public function getItems();
+
+    /**
+     * Sets the cart items
+     *
+     * NOTE: Use with caution! This is the only point where no type check is done
+     *
+     * @param [] $items
+     *
+     * @return this
+     */
+    public function setItems(array $items);
 }

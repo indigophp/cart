@@ -9,43 +9,39 @@
  * file that was distributed with this source code.
  */
 
-namespace Indigo\Cart\Store;
-
-use Indigo\Cart\CartInterface;
+namespace Indigo\Cart;
 
 /**
- * Store Interface
- *
  * Interface for stores (like session, database, etc)
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-interface StoreInterface
+interface Store
 {
     /**
      * Loads data from store
      *
-     * @param CartInterface $cart
+     * @param Cart $cart
      *
      * @return boolean
      */
-    public function load(CartInterface $cart);
+    public function load(Cart $cart);
 
     /**
      * Saves data to store
      *
-     * @param CartInterface $cart
+     * @param Cart $cart
      *
      * @return boolean
      */
-    public function save(CartInterface $cart);
+    public function save(Cart $cart);
 
     /**
      * Deletes the cart from the store
      *
-     * @param CartInterface $cart
+     * @param Cart $cart
      *
      * @return boolean
      */
-    public function delete(CartInterface $cart);
+    public function delete(Cart $cart);
 }
