@@ -11,6 +11,8 @@
 
 namespace Indigo\Cart;
 
+use InvalidArgumentException;
+
 /**
  * Implements quantity logic
  *
@@ -18,10 +20,10 @@ namespace Indigo\Cart;
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class Quantity
+trait Quantity
 {
     /**
-     * Must be an integer greater than zero
+     * Must be a positive integer
      *
      * @var integer
      */
@@ -34,24 +36,24 @@ class Quantity
      *
      * @throws InvalidArgumentException If $quantity is not integer
      */
-    private function assertQuantityNonZeroInteger($quantity)
+    private function assertQuantityInteger($quantity)
     {
-        if (!is_int($quantity) or $quantity < 1) {
-            throw new InvalidArgumentException('Quantity must be an integer greater than zero');
+        if (!is_int($quantity)) {
+            throw new InvalidArgumentException('Quantity must be an integer');
         }
     }
 
     /**
-     * Asserts that a given quantity change is valid
+     * Asserts that given quantity is positive
      *
      * @param integer $quantity
      *
-     * @throws InvalidArgumentException If quantity change is invalid
+     * @throws InvalidArgumentException If $quantity is not positive
      */
-    private function assertValidQuantityChange($quantity)
+    private function assertQuantityPositive($quantity)
     {
-        if (!is_int($quantity) or ($quantity < 0 and abs($quantity) >= $this->quantity) or $quantity === 0) {
-            throw new InvalidArgumentException('Quantity change must not be zero and must result in an integer greater than zero');
+        if ($quantity < 1) {
+            throw new InvalidArgumentException('Quantity must be positive');
         }
     }
 
@@ -68,9 +70,12 @@ class Quantity
      */
     public function changeQuantity($quantity)
     {
-        $this->assertValidQuantityChange($quantity);
+        $this->assertQuantityInteger($quantity);
 
-        $this->quantity += $quantity;
+        $quantity = $this->quantity + $quantity;
+
+        // Use this to make sure a proper integer check is done after addition
+        $this->setQuantity($quantity);
 
         return $this;
     }
@@ -80,7 +85,8 @@ class Quantity
      */
     public function setQuantity($quantity)
     {
-        $this->assertQuantityNonZeroInteger($quantity);
+        $this->assertQuantityInteger($quantity);
+        $this->assertQuantityPositive($quantity);
 
         $this->quantity = $quantity;
 
