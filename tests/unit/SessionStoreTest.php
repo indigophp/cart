@@ -44,13 +44,13 @@ class SessionStoreTest extends Test
     {
         $this->store = new SessionStore;
 
-        $this->cart = \Mockery::mock('Indigo\\Cart\\CartInterface');
+        $this->cart = \Mockery::mock('Indigo\\Cart\\Cart');
 
-        $this->cart->shouldReceive('getContents')
+        $this->cart->shouldReceive('getItems')
             ->andReturn([])
             ->byDefault();
 
-        $this->cart->shouldReceive('setContents')
+        $this->cart->shouldReceive('setItems')
             ->andReturn([])
             ->byDefault();
 
@@ -64,12 +64,14 @@ class SessionStoreTest extends Test
     /**
      * @covers ::__construct
      * @covers ::getSessionKey
+     * @covers ::load
      */
     public function testSessionKey()
     {
         $store = new SessionStore('cart_key');
 
         $this->assertEquals('cart_key', $store->getSessionKey());
+        $this->assertFalse($store->load($this->cart));
     }
 
     /**
