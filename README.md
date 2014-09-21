@@ -23,50 +23,35 @@ Via Composer
 }
 ```
 
-**Note**: Package uses PSR-4 autoloader, make sure you have a fresh version of Composer.
-
-
 ## Usage
 
-Instantiate cart and fill it with items:
+There is a simple Cart and Item implementation in the package:
 
 ``` php
-use Indigo\Cart\Cart;
-use Indigo\Cart\Item;
-use Indigo\Cart\Option\Tax;
-use Indigo\Cart\Store\SessionStore;
+use Indigo\Cart\SimpleCart;
+use Indigo\Cart\SimpleItem;
+use Indigo\Cart\SessionStore;
 
 $cart = new Cart('cart_id');
 
-$cart->add(
-    new Item(
-        array(
-            'id'       => 1,
-            'name'     => 'Some Product',
-            'price'    => 1.000,
-            'quantity' => 1,
-            'option'   => new Tax(array(
-                'id'    => 1,
-                'name'  => 'VAT',
-                'value' => 10,
-                'mode'  => Tax::PERCENT,
-            )),
-        )
-    )
-);
+// id, name, price, quantity
+$cart->addItem(new SimpleItem(1, 'Product name', 1234, 1));
 
-// Get price with option(s)
-$cart->getTotal(true);
+// Get total price
+$cart->getTotal();
 
 // Get item count (item * quantity)
 $cart->getQuantity();
 
-foreach($cart as $id => $item) {
-    // Get subtotal with option(s)
-    $item->getSubtotal(true);
+foreach($cart->getItems() as $id => $item) {
+    // Get subtotal
+    $item->getSubtotal();
 
-    // Get price with option(s)
-    $item->getPrice(true);
+    // Get price
+    $item->getPrice();
+
+    // Get name
+    $item->getName();
 }
 
 $store = new SessionStore;
@@ -77,18 +62,13 @@ Get existing cart:
 
 ``` php
 use Indigo\Cart\Cart;
-use Indigo\Cart\Store\SessionStore;
+use Indigo\Cart\SessionStore;
 
 $cart = new Cart('cart_id');
 
 $store = new SessionStore;
 $store->load($cart);
 ```
-
-Currently available `Option`s:
-* `Option`: General option with a simple value.
-* `Tax`: Tax value with two modes: absolute (simple value) and percent (calculated from price).
-* `Collection`: Collection of Options.
 
 
 ## Testing
