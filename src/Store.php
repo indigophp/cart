@@ -9,18 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Indigo\Cart\Store;
-
-use Indigo\Cart\Cart;
+namespace Indigo\Cart;
 
 /**
- * StoreInterface
- *
  * Interface for stores (like session, database, etc)
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-interface StoreInterface
+interface Store
 {
     /**
      * Loads data from store

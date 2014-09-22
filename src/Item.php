@@ -11,84 +11,71 @@
 
 namespace Indigo\Cart;
 
-use Indigo\Container\Struct;
-use Fuel\Validation\Rule\Type;
-use Serializable;
-
 /**
- * Item class
+ * Interface for Cart Item implementations
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class Item extends Struct implements ItemInterface, Serializable
+interface Item
 {
-    use \Indigo\Container\Helper\Id;
-    use \Indigo\Container\Helper\Serializable;
-
     /**
-     * {@inheritdocs}
-     */
-    protected $struct = [
-        'id' => [
-            'required',
-            'type' => ['integer', 'string'],
-        ],
-        'name' => [
-            'required',
-            'type' => 'string',
-        ],
-        'price' => [
-            'required',
-            'type' => 'float',
-        ],
-        'quantity' => [
-            'required',
-            'type'       => 'integer',
-            'numericMin' => 1,
-        ],
-        'option' => [
-            'type' => 'Indigo\\Cart\\Option\\OptionInterface'
-        ],
-    ];
-
-    /**
-     * Keys to ignore in the hashing process
+     * Returns the ID
      *
-     * @var []
+     * It must be a unique identifier for all product variants
+     *
+     * @return string
      */
-    protected $ignoreKeys = ['quantity'];
+    public function getId();
 
     /**
-     * {@inheritdocs}
+     * Returns the name of the item
+     *
+     * @return string
      */
-    public function changeQuantity($quantity)
-    {
-        $this->data['quantity'] += (int) $quantity;
-
-        return $this;
-    }
+    public function getName();
 
     /**
-     * {@inheritdocs}
+     * Returns the quantity
+     *
+     * @return integer
      */
-    public function getPrice($option = false)
-    {
-        $price = $this->price;
-
-        if ($option and isset($this->data['option'])) {
-            $price += $this->option->getValue($price);
-        }
-
-        return $price;
-    }
+    public function getQuantity();
 
     /**
-     * {@inheritdocs}
+     * Updates the quantity
+     *
+     * Handles negative integers as well
+     *
+     * Should result in a positive quantity
+     *
+     * @param integer $quantity
+     *
+     * @return self
      */
-    public function getSubtotal($option = false)
-    {
-        $price = $this->getPrice($option);
+    public function changeQuantity($quantity);
 
-        return $price * $this->quantity;
-    }
+    /**
+     * Sets the quantity
+     *
+     * Sets the value instead of modifying it
+     *
+     * @param integer $quantity
+     *
+     * @return self
+     */
+    public function setQuantity($quantity);
+
+    /**
+     * Returns the price
+     *
+     * @return mixed
+     */
+    public function getPrice();
+
+    /**
+     * Returns the subtotal
+     *
+     * @return mixed
+     */
+    public function getSubtotal();
 }
