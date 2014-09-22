@@ -178,12 +178,13 @@ class SimpleCartTest extends Test
 
     /**
      * @covers ::reset
+     * @covers ::isEmpty
      */
-    public function testReset()
+    public function testResetEmpty()
     {
-        $this->assertGreaterThan(0, count($this->cart));
+        $this->assertFalse($this->cart->isEmpty());
         $this->assertTrue($this->cart->reset());
-        $this->assertEquals(0, count($this->cart));
+        $this->assertTrue($this->cart->isEmpty());
     }
 
     /**

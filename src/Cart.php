@@ -80,6 +80,13 @@ interface Cart
     public function getQuantity();
 
     /**
+     * Checks whether cart is empty
+     *
+     * @return boolean
+     */
+    public function isEmpty();
+
+    /**
      * Resets the Cart
      *
      * @return boolean

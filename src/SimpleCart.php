@@ -140,6 +140,14 @@ class SimpleCart implements Cart, IteratorAggregate, Countable
     /**
      * {@inheritdoc}
      */
+    public function isEmpty()
+    {
+        return empty($this->items);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function reset()
     {
         $this->items = [];
