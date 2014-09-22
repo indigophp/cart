@@ -1,5 +1,7 @@
 # CHANGELOG
 
+* Adds `isEmpty` to `Cart`
+
 
 ## 2.0.0 (released 2014-09-22)
 
