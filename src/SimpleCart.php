@@ -169,8 +169,6 @@ class SimpleCart implements Cart, IteratorAggregate, Countable
     public function setItems(array $items)
     {
         $this->items = $items;
-
-        return $this;
     }
 
     /**

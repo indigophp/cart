@@ -96,7 +96,7 @@ interface Cart
     /**
      * Returns the cart items
      *
-     * @return []
+     * @return array
      */
     public function getItems();
 
@@ -105,9 +105,7 @@ interface Cart
      *
      * NOTE: Use with caution! This is the only point where no type check is done
      *
-     * @param [] $items
-     *
-     * @return this
+     * @param array $items
      *
      * @internal
      */
