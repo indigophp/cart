@@ -31,7 +31,7 @@ There is a simple Cart and Item implementation in the package:
 ``` php
 use Indigo\Cart\SimpleCart;
 use Indigo\Cart\SimpleItem;
-use Indigo\Cart\SessionStore;
+use Indigo\Cart\Store\Session;
 
 $cart = new Cart('cart_id');
 
@@ -55,7 +55,7 @@ foreach($cart->getItems() as $id => $item) {
     $item->getName();
 }
 
-$store = new SessionStore;
+$store = new Session;
 $store->save($cart);
 ```
 
@@ -63,11 +63,11 @@ Get existing cart:
 
 ``` php
 use Indigo\Cart\Cart;
-use Indigo\Cart\SessionStore;
+use Indigo\Cart\Store\Session;
 
 $cart = new Cart('cart_id');
 
-$store = new SessionStore;
+$store = new Session;
 $store->load($cart);
 ```
 
