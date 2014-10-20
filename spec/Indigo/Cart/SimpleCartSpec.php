@@ -16,6 +16,11 @@ class SimpleCartSpec extends ObjectBehavior
 
     function it_should_have_an_id()
     {
+        $this->getId()->shouldBeString();
+    }
+
+    function it_should_allow_to_have_an_id()
+    {
         $this->beConstructedWith('_CART_');
 
         $this->getId()->shouldReturn('_CART_');

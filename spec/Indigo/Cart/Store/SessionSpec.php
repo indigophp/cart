@@ -13,6 +13,13 @@ class SessionSpec extends ObjectBehavior
         $this->shouldHaveType('Indigo\Cart\Store');
     }
 
+    function it_should_have_a_session_key()
+    {
+        $this->beConstructedWith('SESSION_KEY');
+
+        $this->getSessionKey()->shouldReturn('SESSION_KEY');
+    }
+
     function it_should_load_a_cart(Cart $cart)
     {
         $cart->getId()->willReturn('cart');

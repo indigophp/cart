@@ -17,7 +17,18 @@ class SimpleItemSpec extends ObjectBehavior
         $this->shouldHaveType('Indigo\Cart\Item');
     }
 
-    function it_should_have_id()
+    function it_should_throw_an_exception_when_price_is_not_numeric()
+    {
+        $this->shouldThrow('InvalidArgumentException')->during('__construct', ['Item', 'asd', 1]);
+    }
+
+    function it_should_have_an_id()
+    {
+        $this->beConstructedWith('Item', 1, 1);
+        $this->getId()->shouldBeString();
+    }
+
+    function it_should_allow_to_have_an_id()
     {
         $this->getId()->shouldReturn('_ITEM_');
     }
@@ -27,7 +38,7 @@ class SimpleItemSpec extends ObjectBehavior
         $this->getName()->shouldReturn('Item');
     }
 
-    function it_should_have_proce()
+    function it_should_have_price()
     {
         $this->getPrice()->shouldReturn(1);
     }
