@@ -1,0 +1,5 @@
+suites:
+  cart_suite:
+    namespace: Indigo\Cart
+    psr4_prefix: Indigo\Cart
+formatter.name: pretty

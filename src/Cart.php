@@ -108,6 +108,8 @@ interface Cart
      * @param [] $items
      *
      * @return this
+     *
+     * @internal
      */
     public function setItems(array $items);
 }

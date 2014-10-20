@@ -1,11 +1,11 @@
 # Indigo Cart
 
-[![Build Status](https://travis-ci.org/indigophp/cart.svg?branch=develop)](https://travis-ci.org/indigophp/cart)
-[![Code Coverage](https://scrutinizer-ci.com/g/indigophp/cart/badges/coverage.png?s=08dc6c57aba0eb1fe81802736abc1d28e3730395)](https://scrutinizer-ci.com/g/indigophp/cart/)
-[![Latest Stable Version](https://poser.pugx.org/indigophp/cart/v/stable.png)](https://packagist.org/packages/indigophp/cart)
-[![Total Downloads](https://poser.pugx.org/indigophp/cart/downloads.png)](https://packagist.org/packages/indigophp/cart)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/indigophp/cart/badges/quality-score.png?s=8db49a4f6804240a1add0ac9400b621c1735a656)](https://scrutinizer-ci.com/g/indigophp/cart/)
-[![License](https://poser.pugx.org/indigophp/cart/license.png)](https://packagist.org/packages/indigophp/cart)
+[![Build Status](https://img.shields.io/travis/indigophp/cart/develop.svg?style=flat-square)](https://travis-ci.org/indigophp/cart)
+[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/indigophp/cart.svg?style=flat-square)](https://scrutinizer-ci.com/g/indigophp/cart)
+[![Packagist Version](https://img.shields.io/packagist/v/indigophp/cart.svg?style=flat-square)](https://packagist.org/packages/indigophp/cart)
+[![Total Downloads](https://img.shields.io/packagist/dt/indigophp/cart.svg?style=flat-square)](https://packagist.org/packages/indigophp/cart)
+[![Quality Score](https://img.shields.io/scrutinizer/g/indigophp/cart.svg?style=flat-square)](https://scrutinizer-ci.com/g/indigophp/cart)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Dependency Status](https://www.versioneye.com/user/projects/53c95da0c2756785da000026/badge.svg?style=flat)](https://www.versioneye.com/user/projects/53c95da0c2756785da000026)
 
 **Indigo Cart manages shopping cart and takes care of the related tasks.**
@@ -22,6 +22,7 @@ Via Composer
     }
 }
 ```
+
 
 ## Usage
 
@@ -74,7 +75,7 @@ $store->load($cart);
 ## Testing
 
 ``` bash
-$ codecept run
+$ phpspec run
 ```
 
 

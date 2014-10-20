@@ -1,6 +1,6 @@
 {
     "name": "indigophp/cart",
-    "description": "Decent shopping cart and store abstraction",
+    "description": "Cart abstraction layer",
     "license": "MIT",
     "keywords": ["shopping", "cart"],
     "homepage": "https://indigophp.com",
@@ -14,13 +14,21 @@
         "php": ">=5.4.0"
     },
     "require-dev": {
-        "codeception/codeception": "~2.0.0",
-        "codeception/mockery-module": "dev-master"
+        "phpspec/phpspec": "~2.0",
+        "henrikbjorn/phpspec-code-coverage" : "1.0.*@dev"
     },
     "autoload": {
         "psr-4": {
             "Indigo\\Cart\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Indigo\\Cart\\Stub\\": "stub/"
+        }
+    },
+    "config": {
+        "bin-dir": "bin"
     },
     "prefer-stable": true,
     "minimum-stability": "dev"

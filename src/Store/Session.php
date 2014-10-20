@@ -9,14 +9,17 @@
  * file that was distributed with this source code.
  */
 
-namespace Indigo\Cart;
+namespace Indigo\Cart\Store;
+
+use Indigo\Cart\Store;
+use Indigo\Cart\Cart;
 
 /**
  * Session Store
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class SessionStore implements Store
+class Session implements Store
 {
     /**
      * Session key used for store
