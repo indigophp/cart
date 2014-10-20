@@ -50,7 +50,7 @@ interface Cart
      *
      * @param Item $item
      *
-     * @return this
+     * @return self
      */
     public function addItem(Item $item);
 

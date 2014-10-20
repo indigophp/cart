@@ -42,10 +42,10 @@ class SimpleItem implements Item
     private $price;
 
     /**
-     * @param string       $name
-     * @param intger|float $price
-     * @param integer      $quantity
-     * @param mixed        $id
+     * @param string        $name
+     * @param integer|float $price
+     * @param integer       $quantity
+     * @param mixed         $id
      */
     public function __construct($name, $price, $quantity, $id = null)
     {
