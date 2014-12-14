@@ -11,10 +11,8 @@
 
 namespace Indigo\Cart;
 
-use Indigo\Cart\Item;
-
 /**
- * Interface for Cart implementations
+ * Contains the Items and other Cart relevant data
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
