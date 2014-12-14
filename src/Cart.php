@@ -47,8 +47,6 @@ interface Cart
      * Adds an item to the cart
      *
      * @param Item $item
-     *
-     * @return self
      */
     public function addItem(Item $item);
 

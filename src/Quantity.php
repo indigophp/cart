@@ -76,8 +76,6 @@ trait Quantity
 
         // Use this to make sure a proper integer check is done after addition
         $this->setQuantity($quantity);
-
-        return $this;
     }
 
     /**
@@ -89,7 +87,5 @@ trait Quantity
         $this->assertQuantityPositive($quantity);
 
         $this->quantity = $quantity;
-
-        return $this;
     }
 }

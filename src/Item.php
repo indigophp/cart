@@ -49,8 +49,6 @@ interface Item
      * Should result in a positive quantity
      *
      * @param integer $quantity
-     *
-     * @return self
      */
     public function changeQuantity($quantity);
 
@@ -60,8 +58,6 @@ interface Item
      * Sets the value instead of modifying it
      *
      * @param integer $quantity
-     *
-     * @return self
      */
     public function setQuantity($quantity);
 

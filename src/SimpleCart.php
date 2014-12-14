@@ -83,8 +83,6 @@ class SimpleCart implements Cart, IteratorAggregate, Countable
         } else {
             $this->items[$id] = $item;
         }
-
-        return $this;
     }
 
     /**
