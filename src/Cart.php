@@ -28,9 +28,11 @@ interface Cart
     /**
      * Returns an item by id
      *
-     * @param mixed $id
+     * @param integer|string $id
      *
      * @return Item
+     *
+     * @throws Exception\ItemNotFound If item with $id cannot be found
      */
     public function getItem($id);
 
@@ -45,6 +47,9 @@ interface Cart
 
     /**
      * Adds an item to the cart
+     *
+     * If the Item with the same ID already exists, the quantity is changed
+     * Make sure that same products with different options have different item IDs
      *
      * @param Item $item
      */
