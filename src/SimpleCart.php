@@ -11,17 +11,12 @@
 
 namespace Indigo\Cart;
 
-use IteratorAggregate;
-use ArrayIterator;
-use Countable;
-use InvalidArgumentException;
-
 /**
- * Simple Cart implementation
+ * Proof of concept Cart implementation
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class SimpleCart implements Cart, IteratorAggregate, Countable
+class SimpleCart implements Cart, \IteratorAggregate
 {
     /**
      * @var mixed
@@ -29,7 +24,7 @@ class SimpleCart implements Cart, IteratorAggregate, Countable
     private $id;
 
     /**
-     * @var []
+     * @var Item[]
      */
     private $items = [];
 
@@ -58,9 +53,19 @@ class SimpleCart implements Cart, IteratorAggregate, Countable
      */
     public function getItem($id)
     {
-        if ($this->hasItem($id)) {
-            return $this->items[$id];
+        if (!$this->hasItem($id)) {
+            throw new Exception\ItemNotFound($id);
         }
+
+        return $this->items[$id];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getItems()
+    {
+        return $this->items;
     }
 
     /**
@@ -80,9 +85,11 @@ class SimpleCart implements Cart, IteratorAggregate, Countable
 
         if ($currentItem = $this->getItem($id)) {
             $currentItem->changeQuantity($item->getQuantity());
-        } else {
-            $this->items[$id] = $item;
+
+            return;
         }
+
+        $this->items[$id] = $item;
     }
 
     /**
@@ -115,9 +122,11 @@ class SimpleCart implements Cart, IteratorAggregate, Countable
         foreach ($this->items as $item) {
             if ($item instanceof TotalCalculator) {
                 $total = $item->calculateTotal($total);
-            } else {
-                $total += $item->getSubtotal();
+
+                continue;
             }
+
+            $total += $item->getSubtotal();
         }
 
         return $total;
@@ -146,7 +155,7 @@ class SimpleCart implements Cart, IteratorAggregate, Countable
     /**
      * {@inheritdoc}
      */
-    public function reset()
+    public function clear()
     {
         $this->items = [];
 
@@ -156,17 +165,9 @@ class SimpleCart implements Cart, IteratorAggregate, Countable
     /**
      * {@inheritdoc}
      */
-    public function getItems()
+    public function count()
     {
-        return $this->items;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setItems(array $items)
-    {
-        $this->items = $items;
+        return count($this->getItems());
     }
 
     /**
@@ -174,14 +175,6 @@ class SimpleCart implements Cart, IteratorAggregate, Countable
      */
     public function getIterator()
     {
-        return new ArrayIterator($this->getItems());
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function count()
-    {
-        return count($this->getItems());
+        return new \ArrayIterator($this->items);
     }
 }

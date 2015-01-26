@@ -16,7 +16,7 @@ namespace Indigo\Cart;
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-interface Cart
+interface Cart extends \Countable
 {
     /**
      * Returns the cart ID
@@ -26,7 +26,7 @@ interface Cart
     public function getId();
 
     /**
-     * Returns an item by id
+     * Returns an item by ID
      *
      * @param integer|string $id
      *
@@ -37,9 +37,16 @@ interface Cart
     public function getItem($id);
 
     /**
+     * Returns the cart items
+     *
+     * @return Item[]
+     */
+    public function getItems();
+
+    /**
      * Checks whether an item is already in cart
      *
-     * @param mixed $id
+     * @param integer|string $id
      *
      * @return boolean
      */
@@ -56,9 +63,9 @@ interface Cart
     public function addItem(Item $item);
 
     /**
-     * Removes an item from cart (by ID or by object)
+     * Removes an item from cart
      *
-     * @param mixed $item
+     * @param integer|string $item
      *
      * @return boolean
      */
@@ -88,27 +95,9 @@ interface Cart
     public function isEmpty();
 
     /**
-     * Resets the Cart
+     * Clears the Cart
      *
      * @return boolean
      */
-    public function reset();
-
-    /**
-     * Returns the cart items
-     *
-     * @return array
-     */
-    public function getItems();
-
-    /**
-     * Sets the cart items
-     *
-     * NOTE: Use with caution! This is the only point where no type check is done
-     *
-     * @param array $items
-     *
-     * @internal
-     */
-    public function setItems(array $items);
+    public function clear();
 }
