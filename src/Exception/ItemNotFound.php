@@ -19,7 +19,7 @@ namespace Indigo\Cart\Exception;
 class ItemNotFound extends \OutOfBoundsException
 {
     /**
-     * @param integer|string $id
+     * @param mixed $id
      */
     public function __construct($id)
     {

@@ -11,12 +11,11 @@
 
 namespace Indigo\Cart;
 
-use InvalidArgumentException;
+use Assert;
+use Assert\Assertion;
 
 /**
  * Implements quantity logic
- *
- * Makes sence when using with Item
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
@@ -28,34 +27,6 @@ trait Quantity
      * @var integer
      */
     private $quantity;
-
-    /**
-     * Asserts that given quantity is integer
-     *
-     * @param integer $quantity
-     *
-     * @throws InvalidArgumentException If $quantity is not integer
-     */
-    private function assertQuantityInteger($quantity)
-    {
-        if (!is_int($quantity)) {
-            throw new InvalidArgumentException('Quantity must be an integer');
-        }
-    }
-
-    /**
-     * Asserts that given quantity is positive
-     *
-     * @param integer $quantity
-     *
-     * @throws InvalidArgumentException If $quantity is not positive
-     */
-    private function assertQuantityPositive($quantity)
-    {
-        if ($quantity < 1) {
-            throw new InvalidArgumentException('Quantity must be positive');
-        }
-    }
 
     /**
      * {@inheritdoc}
@@ -70,7 +41,7 @@ trait Quantity
      */
     public function changeQuantity($quantity)
     {
-        $this->assertQuantityInteger($quantity);
+        Assertion::integer($quantity, 'Quantity must be an integer');
 
         $quantity = $this->quantity + $quantity;
 
@@ -83,8 +54,9 @@ trait Quantity
      */
     public function setQuantity($quantity)
     {
-        $this->assertQuantityInteger($quantity);
-        $this->assertQuantityPositive($quantity);
+        Assert\that($quantity)
+            ->integer('Quantity must be an integer')
+            ->min(1, 'Quantity must greater than zero');
 
         $this->quantity = $quantity;
     }

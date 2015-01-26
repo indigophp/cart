@@ -28,7 +28,7 @@ interface Cart extends \Countable
     /**
      * Returns an item by ID
      *
-     * @param integer|string $id
+     * @param mixed $id
      *
      * @return Item
      *
@@ -46,7 +46,7 @@ interface Cart extends \Countable
     /**
      * Checks whether an item is already in cart
      *
-     * @param integer|string $id
+     * @param mixed $id
      *
      * @return boolean
      */
@@ -65,11 +65,11 @@ interface Cart extends \Countable
     /**
      * Removes an item from cart
      *
-     * @param integer|string $item
+     * @param mixed $id
      *
      * @return boolean
      */
-    public function removeItem($item);
+    public function removeItem($id);
 
     /**
      * Returns total value of items (without any formatting)

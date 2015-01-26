@@ -12,7 +12,7 @@
 namespace Indigo\Cart;
 
 /**
- * Interface for Cart Item implementations
+ * Cart Item
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
@@ -22,6 +22,7 @@ interface Item
      * Returns the ID
      *
      * It must be a unique identifier for all product variants
+     * (can be either auto generated or not)
      *
      * @return string
      */

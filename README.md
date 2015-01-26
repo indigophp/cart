@@ -23,17 +23,18 @@ $ composer require indigophp/cart
 
 ## Usage
 
-There is a simple Cart and Item implementation in the package:
+To see a proof of concept implementation, check [this](https://github.com/indigophp/simple-cart) library.
 
 ``` php
-use Indigo\Cart\SimpleCart;
-use Indigo\Cart\SimpleItem;
-use Indigo\Cart\Store\Session;
+use Indigo\Cart\Cart;
+use Indigo\Cart\Item;
+use Indigo\Cart\Store;
 
-$cart = new Cart('cart_id');
+/* Note: these are interfaces, you cannot instantiate them */
 
-// id, name, price, quantity
-$cart->addItem(new SimpleItem(1, 'Product name', 1234, 1));
+$cart = new Cart;
+
+$cart->addItem(new Item);
 
 // Get total price
 $cart->getTotal();
@@ -52,20 +53,17 @@ foreach($cart->getItems() as $id => $item) {
     $item->getName();
 }
 
-$store = new Session;
+$store = new Store;
 $store->save($cart);
 ```
 
 Get existing cart:
 
 ``` php
-use Indigo\Cart\Cart;
-use Indigo\Cart\Store\Session;
+use Indigo\Cart\Store;
 
-$cart = new Cart('cart_id');
-
-$store = new Session;
-$store->load($cart);
+$store = new Store;
+$cart = $store->load('cart_id');
 ```
 
 

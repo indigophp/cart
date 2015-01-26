@@ -12,7 +12,7 @@
 namespace Indigo\Cart;
 
 /**
- * Interface for stores (like session, database, etc)
+ * Store the cart
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
@@ -21,11 +21,11 @@ interface Store
     /**
      * Loads data from store
      *
-     * @param Cart $cart
+     * @param mixed $id
      *
-     * @return boolean
+     * @return Cart
      */
-    public function load(Cart $cart);
+    public function load($id);
 
     /**
      * Saves data to store
@@ -39,9 +39,9 @@ interface Store
     /**
      * Deletes the cart from the store
      *
-     * @param Cart $cart
+     * @param mixed $id
      *
      * @return boolean
      */
-    public function delete(Cart $cart);
+    public function delete($id);
 }

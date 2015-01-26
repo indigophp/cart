@@ -23,8 +23,8 @@ namespace Indigo\Cart;
  *
  * Total calculation can be decoupled from Cart objects (which can rely on this interface)
  *
- * NOTE: Mixing multiple items (implementing this interface) in one cart is dangerous
- * Always check that the different items are compatible
+ * NOTE: Mixing different type of items (implementing this interface) in one cart is dangerous
+ * Always check that the items are compatible
  * (eg. use the same monetary value representation)
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
