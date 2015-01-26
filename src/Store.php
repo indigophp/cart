@@ -19,13 +19,15 @@ namespace Indigo\Cart;
 interface Store
 {
     /**
-     * Loads data from store
+     * Find a cart by ID
      *
      * @param mixed $id
      *
      * @return Cart
+     *
+     * @throws Exception\CartNotFound If the cart with $id cannot be found
      */
-    public function load($id);
+    public function find($id);
 
     /**
      * Saves data to store

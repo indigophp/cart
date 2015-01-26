@@ -63,7 +63,7 @@ Get existing cart:
 use Indigo\Cart\Store;
 
 $store = new Store;
-$cart = $store->load('cart_id');
+$cart = $store->find('cart_id');
 ```
 
 
