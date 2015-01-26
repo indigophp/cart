@@ -2,9 +2,4 @@ suites:
   cart_suite:
     namespace: Indigo\Cart
     psr4_prefix: Indigo\Cart
-extensions:
-  - PhpSpec\Extension\CodeCoverageExtension
 formatter.name: pretty
-code_coverage:
-  format: clover
-  output: build/coverage.xml
