@@ -53,6 +53,9 @@ foreach($cart->getItems() as $id => $item) {
     $item->getName();
 }
 
+// Throws an Indigo\Cart\Exception\ItemNotFound
+$cart->getItem('non_existent');
+
 $store = new Store;
 $store->save($cart);
 ```
@@ -64,6 +67,9 @@ use Indigo\Cart\Store;
 
 $store = new Store;
 $cart = $store->find('cart_id');
+
+// Throws an Indigo\Cart\Exception\CartNotFound
+$store->find('non_existent');
 ```
 
 
